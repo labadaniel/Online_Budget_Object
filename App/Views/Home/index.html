@@ -1,16 +1,68 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Your Personal Budget{% endblock %}
 
 {% block body %}
 
-    <h1>Welcome</h1>
+
 
     {% if current_user %}
         Hello {{ current_user.name }}.
 
     {% else %}
-        <a href="/signup/new">Sign up</a> or <a href="/login">log in</a>.
+	<main class="tlo1 h-100">
+		<div class="container-fluid no-gutters pt-5 " >
+			<div class="row justify-content-center" >
+				<div class="col-lg-5 col-sm-8  p-4  text-white  h4 shadow-lg rounded" style="background-color: #4F788D">
+					<p class="text-center">Zaloguj się</p>
+					<form class="h6 pt-2 " action="login/create" method="post">
+
+						<div class="form-group">
+						
+							<div class="col-5">
+								<label for="inputEmail">Podaj adres Email:</label>
+							</div>
+							
+							<div class="col-12">
+								<input type="email" id="inputEmail" name="email" placeholder="adres Email" autofocus value="{{ email }}" class="form-control" />
+							</div>
+							
+						</div>
+						
+						<div class="form-group">
+							<div class="col-5">
+								<label for="inputPassword">Podaj hasło:</label>
+							</div>
+							
+							<div class="col-12">
+								<input type="password" id="inputPassword" name="password" placeholder="hasło" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group form-check">
+							<label class="col-5">
+								<input type="checkbox" name="remember_me" {% if remember_me %} checked="checked"{% endif %} class="form-check-input" /> Remember me
+							</label>
+						</div>
+
+						<button type="submit" class="tlo2 btn btn-primary float-right ml-5 hoverable"><i class="demo-icon icon-login"></i>Logowanie</button>
+						<div class="form-group">
+							<div class="col-8">
+								<a class="text-danger" href="/password/forgot">Zapomniałeś hasło?</a>
+							</div>
+						</div>
+							
+						
+							<div class="col-8">
+								Nie posiadasz konta?   
+								<a href="/Signup/new" class="text-danger">REJESTRACJA</a>
+							</div>
+						
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
     {% endif %}
 
 {% endblock %}

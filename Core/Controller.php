@@ -88,7 +88,7 @@ abstract class Controller
 			
 			Auth::rememberRequestedPage();
 			
-			$this->redirect('/Login');
+			$this->redirect('');
 		}
 	}
 }
