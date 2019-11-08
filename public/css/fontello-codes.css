@@ -1,0 +1,13 @@
+
+.icon-wallet:before { content: '\e800'; } /* '' */
+.icon-credit-card:before { content: '\e801'; } /* '' */
+.icon-list:before { content: '\e802'; } /* '' */
+.icon-calendar:before { content: '\e803'; } /* '' */
+.icon-params:before { content: '\e804'; } /* '' */
+.icon-login:before { content: '\e805'; } /* '' */
+.icon-logout:before { content: '\e806'; } /* '' */
+.icon-user:before { content: '\e807'; } /* '' */
+.icon-mail:before { content: '\e808'; } /* '' */
+.icon-key:before { content: '\e809'; } /* '' */
+.icon-calendar-1:before { content: '\e80a'; } /* '' */
+.icon-money:before { content: '\f0d6'; } /* '' */
