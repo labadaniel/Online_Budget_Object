@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Reset password{% endblock %}
+{% block title %}Reset hasła{% endblock %}
 
 {% block footer %}
     <script src="/js/hideShowPassword.min.js"></script>
@@ -37,8 +37,6 @@
 
 {% block body %}
 
-    <h1>Reset password</h1>
-
     {% if user.errors is not empty %}
         <p>Errors:</p>
         <ul>
@@ -47,18 +45,34 @@
             {% endfor %}
         </ul>
     {% endif %}
+	
+	
+	<main class="tlo1 h-100">
+		<div class="container-fluid no-gutters pt-5 " >
+			<div class="row justify-content-center" >
+				<div class="col-lg-5 col-sm-8  p-4  text-white  h4 shadow-lg rounded" style="background-color: #4F788D">
+					<p class="text-center">Reset hasła</p>
 
-    <form method="post" id="formPassword" action="/password/reset-password">
+					<form class="h6 pt-2" method="post" id="formPassword" action="/password/reset-password">
 
-        <input type="hidden" name="token" value="{{ token }}" />
+						<input type="hidden" name="token" value="{{ token }}" />
 
-        <div class="form-group">
-            <label for="inputPassword">Password</label>
-            <input type="password" id="inputPassword" name="password" placeholder="Password" required class="form-control" />
-        </div>
+						<div class="form-group">
+							<div class="col-5">
+								<label for="inputPassword">Podaj nowe hasło</label>
+							</div>
+							<div class="col-12">
+								<input type="password" id="inputPassword" name="password" placeholder="Hasło" required class="form-control" />
+							</div>
+						</div>
 
-        <button type="submit" class="btn btn-outline-dark">Reset password</button>
+						<button type="submit" class="tlo2 btn btn-primary float-right ml-5 hoverable">Zresetuj hasło</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
 
-    </form>
+    
 
 {% endblock %}
