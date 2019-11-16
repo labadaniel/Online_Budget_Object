@@ -20,27 +20,60 @@
 						<p class="h1 text-center mt-4 mb-4"> Your Personal Budget </p>
 				</div>
 			</div>
-			
+
 			<div class="row ">
 				<div class="col" style="background-color: #2F4A57; height:10px;"></div>
 			</div>
-			
+
 			<div class="row" >
 				<div class="col" style="background-color: #4F788D; height:10px;"></div>
 			</div>
-			
+
 			<div class="row">
 				<div class="col" style="background-color: #7BA6B4; height:10px;"></div>
 			</div>
 		</div>
 	</header>
 
+    {% if current_user %}
+      <nav class="navbar tlo2 navbar-dark navbar-expand-lg ">
+        <div	class="  pb-1">
+          <button class="navbar-toggler navbar-toggler-left " type="button" data-toggle="collapse" data-target="#navb">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="mx-auto">
+          <ul class="navbar-nav mx-auto collapse navbar-collapse" id="navb">
+            <li class="nav-item px-3">
+              <a class="nav-link" href="#">Dodaj przychód</a>
+            </li>
+
+            <li class="nav-item px-3 ">
+              <a class="nav-link" href="#">Dodaj wydatek</a>
+            </li>
+
+            <li class="nav-item px-3 ">
+              <a class="nav-link" href="#">Przeglądaj bilans</a>
+            </li>
+
+            <li class="nav-item px-3 ">
+              <a class="nav-link" href="#">Ustawienia</a>
+            </li>
+
+            <li class="nav-item px-3 ">
+              <a class="nav-link" href="#">Wyloguj się</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    {% endif %}
+
 		{% block body %}
 		{% endblock %}
 
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-		
+
 		{% block footer %}
 		{% endblock %}
 	</div>
