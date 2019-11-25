@@ -62,7 +62,7 @@ class User extends \Core\Model
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
             $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
-            $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);            
+            $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
 
             return $stmt->execute();
         }
@@ -89,7 +89,7 @@ class User extends \Core\Model
         if (static::emailExists($this->email, $this->id ?? null)) {
             $this->errors[] = 'email already taken';
         }
-		
+
 		if (isset($this->password))
 		{
 			// Password
@@ -355,7 +355,7 @@ class User extends \Core\Model
 
         return false;
     }
-	
+
 	public function sendActivationEmail()
     {
         $url = 'http://' . $_SERVER['HTTP_HOST'] . '/signup/activate/' . $this->activation_token;
@@ -365,12 +365,12 @@ class User extends \Core\Model
 
         Mail::send($this->email, 'Account activation', $text, $html);
     }
-	
+
 	public static function activate ($value)
 	{
 		$token = new Token ($value);
 		$hashed_token = $token->getHash();
-		
+
 		$sql = 'UPDATE users
                     SET is_active = 1,
                         activation_hash = NULL
@@ -379,26 +379,26 @@ class User extends \Core\Model
             $db = static::getDB();
             $stmt = $db->prepare($sql);
 
-            
+
             $stmt->bindValue(':hashed_token', $hashed_token, PDO::PARAM_STR);
 
             return $stmt->execute();
-		
+
 	}
-	
+
 	public function updateProfile($data)
 	{
 		$this->name = $data['name'];
 		$this->email = $data['email'];
-		
-		
+
+
 		if ($data['password'] != '')
 		{
 			$this->password = $data['password'];
 		}
-		
+
 		$this->validate();
-		
+
 		if (empty($this->errors))
 		{
 			$sql = 'UPDATE users
@@ -407,7 +407,7 @@ class User extends \Core\Model
 			if (isset($this->password)){
 				$sql .= ', password_hash = :password_hash';
 			}
-            
+
 			$sql .= "\nWHERE id = :id";
 
             $db = static::getDB();
@@ -416,14 +416,61 @@ class User extends \Core\Model
             $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
-			
+
 			if (isset($this->password)){
 				$password_hash = password_hash($this->password, PASSWORD_DEFAULT);
 				$stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
 			}
-			
+
             return $stmt->execute();
 		}
 		return false;
 	}
+
+  private function getIncomeCategoryID(){
+    //query("SELECT id FROM incomes_category_assigned_to_users WHERE name = '$category' AND user_id = '$id'"))
+
+    $sql = "SELECT id
+            FROM incomes_category_assigned_to_users
+            WHERE name = '$this->category'
+            AND user_id = '$this->id'";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->execute();
+    $id_category = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $id_category['id'];
+  }
+
+  public function addIncome($data, $id)
+  {
+    $this->amount = $data['amount'];
+    //$amount = $_POST['amount'];
+    $this->date = date('Y-m-d',strtotime($data['date']));
+    //$date = date('Y-m-d',strtotime($_POST['date']));
+    $this->category = $data['category'];
+    //$category = $_POST['category'];
+    $this->comment = $data['comment'];
+    //$comment = $_POST['comment'];
+    $this->id = $id;
+    $this->id_category = $this->getIncomeCategoryID();
+
+//"INSERT INTO incomes VALUES (NULL, '$id', '$id_category',  '$amount', '$date', '$comment')"
+    $sql = "INSERT INTO incomes (user_id, income_category_assigned_to_user_id, amount, date_of_income, income_comment)
+            VALUES (:user_id, :income_category_assigned_to_user_id, :amount, :date_of_income, :income_comment)";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+    $stmt->bindValue(':income_category_assigned_to_user_id', $this->id_category, PDO::PARAM_INT);
+    $stmt->bindValue(':amount', $this->amount, PDO::PARAM_INT);
+    $stmt->bindValue(':date_of_income', $this->date, PDO::PARAM_STR);
+    $stmt->bindValue(':income_comment', $this->comment, PDO::PARAM_STR);
+
+    return $stmt->execute();
+  }
+
+
 }
