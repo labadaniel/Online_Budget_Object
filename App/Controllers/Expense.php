@@ -12,6 +12,12 @@ use \App\Auth;
  */
 class Expense extends \Core\Controller
 {
+  protected function before()
+  {
+    parent::before();
+
+    $this->user = Auth::getUser();
+  }
 
     /**
      * Show the index page
@@ -21,5 +27,12 @@ class Expense extends \Core\Controller
     public function showAction()
     {
         View::renderTemplate('Expense/show.html');
+    }
+
+    public function addExpenseAction(){
+
+      if($this->user->addExpense($_POST, $this->user->id)){
+        View::renderTemplate('Home/index.html');
+      }
     }
 }
