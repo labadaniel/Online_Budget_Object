@@ -472,5 +472,65 @@ class User extends \Core\Model
     return $stmt->execute();
   }
 
+  public function addExpense($data, $id)
+  {
+
+    //query("INSERT INTO expenses VALUES (NULL, '$id', '$id_category', '$id_method', '$amount', '$date', '$comment')"
+    $this->amount = $data['amount'];
+    $this->date = date('Y-m-d',strtotime($data['date']));
+    $this->comment = $data['comment'];
+    $this->method = $data['method'];
+    $this->category = $data['category'];
+    $this->id = $id;
+    $this->id_category = $this->getExpenseCategoryID();
+    $this->id_method = $this->getMethodID();
+
+    $sql = "INSERT INTO expenses (user_id, expense_category_assigned_to_user_id, payment_method_assigned_to_user_id, amount, date_of_expense, expense_comment)
+            VALUES (:user_id, :expense_category_assigned_to_user_id, :payment_method_assigned_to_user_id, :amount, :date_of_expense, :expense_comment)";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+    $stmt->bindValue(':expense_category_assigned_to_user_id', $this->id_category, PDO::PARAM_INT);
+    $stmt->bindValue(':payment_method_assigned_to_user_id', $this->id_method, PDO::PARAM_INT);
+    $stmt->bindValue(':amount', $this->amount, PDO::PARAM_INT);
+    $stmt->bindValue(':date_of_expense', $this->date, PDO::PARAM_STR);
+    $stmt->bindValue(':expense_comment', $this->comment, PDO::PARAM_STR);
+
+
+    return $stmt->execute();
+  }
+
+  private function getExpenseCategoryID(){
+
+    $sql = "SELECT id
+            FROM expenses_category_assigned_to_users
+            WHERE name = '$this->category'
+            AND user_id = '$this->id'";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->execute();
+    $id_category = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $id_category['id'];
+  }
+
+  private function getMethodID(){
+
+    $sql = "SELECT id
+            FROM payment_methods_assigned_to_users
+            WHERE name = '$this->method'
+            AND user_id = '$this->id'";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->execute();
+    $id_category = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $id_category['id'];
+  }
+
 
 }
