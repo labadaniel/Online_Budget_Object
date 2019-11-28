@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Models\User;
+use \App\Auth;
 
 /**
  * Signup controller
@@ -33,10 +34,15 @@ class Signup extends \Core\Controller
         $user = new User($_POST);
 
         if ($user->save()) {
-			
-			$user->sendActivationEmail();
 
-            $this->redirect('/signup/success');
+          $id = $user->getNewUserID();
+          $user->assignExpensesToUser($id);
+          $user->assignIncomesToUser($id);
+          $user->assignMethodsToUser($id);
+
+			    $user->sendActivationEmail();
+
+          $this->redirect('/signup/success');
 
         } else {
 
@@ -56,16 +62,17 @@ class Signup extends \Core\Controller
     {
         View::renderTemplate('Signup/success.html');
     }
-	
+
 	public function activateAction()
 	{
 		User::activate($this->route_params['token']);
-		
+
 		$this->redirect('/signup/activated');
 	}
-	
+
 	public function activatedAction()
 	{
-		View::renderTemplate('Signup/activated.html');
+
+		  View::renderTemplate('Signup/activated.html');
 	}
 }
