@@ -4,6 +4,7 @@ namespace App\Models;
 
 use PDO;
 use \App\Token;
+USE \App\Auth;
 use \App\Mail;
 use \Core\View;
 
@@ -14,6 +15,8 @@ use \Core\View;
  */
 class User extends \Core\Model
 {
+
+
 
     /**
      * Error messages
@@ -530,6 +533,56 @@ class User extends \Core\Model
     $stmt->execute();
     $id_category = $stmt->fetch(PDO::FETCH_ASSOC);
     return $id_category['id'];
+  }
+
+  public function assignExpensesToUser($id){
+
+    $sql = "INSERT INTO expenses_category_assigned_to_users (name, user_id)
+            SELECT expenses_category_default.name, users.id
+            FROM expenses_category_default, users
+            WHERE users.id = '$id'";
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    return $stmt->execute();
+
+  }
+
+  public function assignIncomesToUser($id){
+
+    $sql = "INSERT INTO incomes_category_assigned_to_users (name, user_id)
+            SELECT incomes_category_default.name, users.id
+            FROM incomes_category_default, users
+            WHERE users.id = '$id'";
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    return $stmt->execute();
+
+  }
+
+  public function assignMethodsToUser($id){
+
+    $sql = "INSERT INTO payment_methods_assigned_to_users (name, user_id)
+            SELECT payment_methods_default.name, users.id
+            FROM payment_methods_default, users
+            WHERE users.id = '$id'";
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    return $stmt->execute();
+
+  }
+
+
+  public function getNewUserID(){
+    $sql = "SELECT MAX(id)
+            FROM users";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->execute();
+    $id = $stmt->fetch();
+
+    return $id[0];
   }
 
 
