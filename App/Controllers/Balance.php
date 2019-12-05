@@ -19,6 +19,7 @@ class Balance extends \Core\Controller
     $this->user = Auth::getUser();
   }
 
+
     /**
      * Show the index page
      *
@@ -91,4 +92,5 @@ class Balance extends \Core\Controller
 
       return $sum;
     }
+
 }

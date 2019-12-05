@@ -9,35 +9,38 @@
 
     <div class="row " >
       <div class=" col-lg-8 col-md-8 col-sm-8 col-7 ">
-        <div class="col-lg-5 pt-2  mt-3 ml-3 pb-2 text-white  shadow-lg rounded d-inline- float-left" style="background-color: #4F788D; min-height:300px">
+        <div class="col-lg-5 pt-2  mt-3 ml-3 pb-2 text-white  shadow-lg rounded d-inline- float-left" style="background-color: #4F788D; min-height:400px">
           <p class="text-center h4" >Przychody</p>
+
+
+
         </div>
 
-        <div class="col-lg-5 pt-2  pb-2 ml-3 mt-3 text-white  shadow-lg rounded d-inline-block" style="background-color: #4F788D; min-height:300px">
+        <div class="col-lg-5 pt-2  pb-2 ml-3 mt-3 text-white  shadow-lg rounded d-inline-block" style="background-color: #4F788D; min-height:400px">
           <p class="text-center h4">Wydatki</p>
-
           <table class="table text-white-50">
-  					<thead>
-  						<tr class="text-white">
-  							  <th scope="col">#</th>
-  							  <th scope="col">Kategoria</th>
-  							  <th scope="col">Wartość</th>
-  						</tr>
-  					</thead>
-  					<tbody>
+           <thead>
+             <tr class="text-white">
+                 <th scope="col">#</th>
+                 <th scope="col">Kategoria</th>
+                 <th scope="col">Wartość</th>
+             </tr>
+           </thead>
+           <tbody>
 
-              {% for row in rows %}
-              <tr>
-                <th scope="row">no</th>
-                <td> {{ row.name }} </td>
-                <td> {{ row.sum }} zł</td>
-              </tr>
-              {% endfor %}
+             {% for row in rows %}
+             <tr>
+               <th scope="row">no</th>
+               <td> {{ row.name }} </td>
+               <td> {{ row.sum }} zł</td>
+             </tr>
+             {% endfor %}
 
-            </tbody>
-          </table>
+           </tbody>
+         </table>
 
-          <div class="h6 text-white-50"> Całkowita wartość: {{ expensesSum }} zł</div>
+         <div class="h6 text-white-50"> Całkowita wartość: {{ expensesSum }} zł</div>
+
         </div>
       </div>
 
@@ -59,7 +62,7 @@
               <input type="radio" class="form-check-input" name="balance" value="current_year" required>
               <label class="form-check-label">Bieżący rok</label>
             </div>
-          <div class="form-check mx-2">
+            <div class="form-check mx-2">
               <input type="radio" class="form-check-input" name="balance" value="user_period" required>
               <label class="form-check-label">Niestandardowy okres:</label>
             </div>
