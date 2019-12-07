@@ -619,4 +619,39 @@ class User extends \Core\Model
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public function getIncomes($date){
+    $sql = "SELECT incuser.name, SUM(inc.amount) AS sum
+            FROM incomes  AS inc
+            INNER JOIN incomes_category_assigned_to_users AS incuser
+            WHERE incuser.id = inc.income_category_assigned_to_user_id
+            AND inc.user_id = '$this->id'
+            AND inc.date_of_income LIKE '%$date%'
+            GROUP BY incuser.name
+            ORDER BY inc.date_of_income DESC";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function getIncomesUserDate($date1, $date2){
+    $sql = "SELECT incuser.name, SUM(inc.amount) AS sum
+            FROM incomes  AS inc
+            INNER JOIN incomes_category_assigned_to_users AS incuser
+            WHERE incuser.id = inc.income_category_assigned_to_user_id
+            AND inc.user_id = '$this->id'
+            AND inc.date_of_income >= '$date1'
+            AND inc.date_of_income <= '$date2'
+            GROUP BY incuser.name
+            ORDER BY inc.date_of_income DESC";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 }
