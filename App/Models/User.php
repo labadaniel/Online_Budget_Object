@@ -602,6 +602,21 @@ class User extends \Core\Model
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  public function getExpensesUserDate($date1, $date2){
+    $sql = "SELECT expuser.name, SUM(exp.amount) AS sum
+            FROM expenses  AS exp
+            INNER JOIN expenses_category_assigned_to_users AS expuser
+            WHERE expuser.id = exp.expense_category_assigned_to_user_id
+            AND exp.user_id = '$this->id'
+            AND exp.date_of_expense >= '$date1'
+            AND exp.date_of_expense <= '$date2'
+            GROUP BY expuser.name
+            ORDER BY exp.date_of_expense DESC";
 
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
 
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 }

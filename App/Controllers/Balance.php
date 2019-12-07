@@ -63,10 +63,16 @@ class Balance extends \Core\Controller
       ]);
     }
 
+
+
     //
     public function showUserBalanceAction(){
       $data = $_POST;
       $this->balance = $data['balance'];
+      $this->fromDate = $data['from_date'];
+      $this->toDate = $data['to_date'];
+
+
 
       if($this->balance == "current_month"){
         $this->redirect('/balance/show-current-month');
@@ -77,9 +83,13 @@ class Balance extends \Core\Controller
       if($this->balance == "current_year"){
         $this->redirect('/balance/show-current-year');
       }
+      if($this->balance == "user_period"){
+        Balance::showUserPeriodAction();
+      }
       else{
         $this->redirect('/balance/show');
       }
+
     }
 
     private function getSum($data){
@@ -91,6 +101,17 @@ class Balance extends \Core\Controller
       }
 
       return $sum;
+    }
+
+    public function showUserPeriodAction(){
+      $this->expenses = $this->user->getExpensesUserDate($this->fromDate, $this->toDate);
+
+      $expensesSum = $this->getSum($this->expenses);
+
+      View::renderTemplate('Balance/show.html', [
+        'rows' => $this->expenses,
+        'expensesSum' => $expensesSum
+      ]);
     }
 
 }
