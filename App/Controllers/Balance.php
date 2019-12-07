@@ -32,34 +32,52 @@ class Balance extends \Core\Controller
 
     public function showCurrentMonthAction(){
       $date = date('Y-m');
+
       $this->expenses = $this->user->getExpenses($date);
+      $this->incomes = $this->user->getIncomes($date);
+
       $expensesSum = $this->getSum($this->expenses);
+      $incomesSum = $this->getSum($this->incomes);
 
       View::renderTemplate('Balance/show.html', [
-        'rows' => $this->expenses,
-        'expensesSum' => $expensesSum
+        'expenses' => $this->expenses,
+        'expensesSum' => $expensesSum,
+        'incomes' => $this->incomes,
+        'incomesSum' => $incomesSum
       ]);
     }
 
     public function showPreviouseMonthAction(){
       $date = date('Y-m', strtotime('-1 month'));
+
       $this->expenses = $this->user->getExpenses($date);
+      $this->incomes = $this->user->getIncomes($date);
+
       $expensesSum = $this->getSum($this->expenses);
+      $incomesSum = $this->getSum($this->incomes);
 
       View::renderTemplate('Balance/show.html', [
-        'rows' => $this->expenses,
-        'expensesSum' => $expensesSum
+        'expenses' => $this->expenses,
+        'expensesSum' => $expensesSum,
+        'incomes' => $this->incomes,
+        'incomesSum' => $incomesSum
       ]);
     }
 
     public function showCurrentYearAction(){
       $date = date('Y');
+
       $this->expenses = $this->user->getExpenses($date);
+      $this->incomes = $this->user->getIncomes($date);
+
       $expensesSum = $this->getSum($this->expenses);
+      $incomesSum = $this->getSum($this->incomes);
 
       View::renderTemplate('Balance/show.html', [
-        'rows' => $this->expenses,
-        'expensesSum' => $expensesSum
+        'expenses' => $this->expenses,
+        'expensesSum' => $expensesSum,
+        'incomes' => $this->incomes,
+        'incomesSum' => $incomesSum
       ]);
     }
 

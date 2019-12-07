@@ -11,6 +11,28 @@
       <div class=" col-lg-8 col-md-8 col-sm-8 col-7 ">
         <div class="col-lg-5 pt-2  mt-3 ml-3 pb-2 text-white  shadow-lg rounded d-inline- float-left" style="background-color: #4F788D; min-height:400px">
           <p class="text-center h4" >Przychody</p>
+          <table class="table text-white-50">
+           <thead>
+             <tr class="text-white">
+                 <th scope="col">#</th>
+                 <th scope="col">Kategoria</th>
+                 <th scope="col">Wartość</th>
+             </tr>
+           </thead>
+           <tbody>
+             {% set counter = 0 %}
+
+             {% for row in incomes %}
+             <tr>
+               <th scope="row">{% set counter = counter + 1 %} {{ counter }}.</th>
+               <td> {{ row.name }} </td>
+               <td> {{ row.sum }} zł</td>
+             </tr>
+             {% endfor %}
+
+           </tbody>
+         </table>
+         <div class="h6 text-white-50"> Całkowita wartość: {{ incomesSum }} zł</div>
 
 
 
@@ -27,10 +49,11 @@
              </tr>
            </thead>
            <tbody>
+             {% set counter = 0 %}
 
-             {% for row in rows %}
+             {% for row in expenses %}
              <tr>
-               <th scope="row">no</th>
+               <th scope="row">{% set counter = counter + 1 %} {{ counter }}.</th>
                <td> {{ row.name }} </td>
                <td> {{ row.sum }} zł</td>
              </tr>
