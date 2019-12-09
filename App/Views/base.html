@@ -37,6 +37,7 @@
 		</div>
 	</header>
 
+
     {% if current_user %}
       <nav class="navbar tlo2 navbar-dark navbar-expand-lg ">
         <div	class="  pb-1">
@@ -72,6 +73,7 @@
 
 		{% block body %}
 		{% endblock %}
+    <!-- Modal -->
 
     <!-- Bootstrap CSS -->
 
@@ -81,9 +83,50 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   </body>
+  {% if current_user == false %}
+    {% for message in flash_messages %}
+
+      <!-- The Modal -->
+      <div class="modal" id="myModal">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title"></h4>
+              <a href="" id="submit" class="close">&times;</a>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              {{ message.body }}
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <a href="" id="submit" class="btn btn-primary success">Ok</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+  {% endif %}
+
 
 		{% block footer %}
 		{% endblock %}
 	</div>
 </body>
+<script>
+
+$(document).ready(function(){
+  $("#submit").click(function(){
+      $("formField").submit();
+  });
+
+});
+
+</script>
 </html>
