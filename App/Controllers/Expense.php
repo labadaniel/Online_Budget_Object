@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Auth;
+use \App\Flash;
 
 /**
  * Home controller
@@ -32,7 +33,12 @@ class Expense extends \Core\Controller
     public function addExpenseAction(){
 
       if($this->user->addExpense($_POST, $this->user->id)){
-        View::renderTemplate('Home/index.html');
+        $this->redirect('/Expense/show-message-expenses');
       }
+    }
+
+    public function showMessageExpensesAction(){
+      Flash::addMessage('Dodano do bazy danych.');
+      $this->redirect('/');
     }
 }
