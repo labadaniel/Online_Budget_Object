@@ -10,7 +10,7 @@
     <div class="row justify-content-center mt-2 mb-2" >
 
       <div class="col-9 pt-1  pb-1 text-white  shadow-lg rounded mb-5" style="background-color: #4F788D">
-        <form method="post" action="add-expense">
+        <form method="post" action="add-expense" id="formField">
 
           <div class="text-center h4 pb-3">Dodaj wydatek</div>
 
@@ -142,7 +142,7 @@
             </div>
             <div class=" float-right mb-5">
               <button class="tlo2 btn btn-primary float-right ml-4 hoverable" type="submit" name="submit" value="cancel"  formnovalidate>Anuluj</button>
-              <button class="tlo2 btn btn-primary float-right ml-4 hoverable" type="submit" name="submit">Dodaj</button>
+              <input class="tlo2 btn btn-primary float-right ml-4 hoverable" type="submit" name="submit" value="Dodaj" data-toggle="modal" data-target="#myModal">
             </div>
           </div>
         </form>
