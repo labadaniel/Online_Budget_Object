@@ -18,8 +18,7 @@ class Balance extends \Core\Controller
 
     $this->user = Auth::getUser();
   }
-
-
+  
     /**
      * Show the index page
      *
@@ -27,7 +26,13 @@ class Balance extends \Core\Controller
      */
     public function showAction()
     {
-        View::renderTemplate('Balance/show.html');
+        $data = $this->showUserBudget(date('Y-m'));
+        View::renderTemplate('Balance/show.html', [
+          'expenses' => $this->expenses,
+          'expensesSum' => $expensesSum,
+          'incomes' => $this->incomes,
+          'incomesSum' => $incomesSum
+        ]);
     }
 
     public function showUserBudget($date){
