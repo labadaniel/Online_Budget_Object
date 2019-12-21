@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Auth;
+use \App\Models\User;
 
 /**
  * Home controller
@@ -12,13 +13,7 @@ use \App\Auth;
  */
 class Balance extends \Core\Controller
 {
-  protected function before()
-  {
-    parent::before();
 
-    $this->user = Auth::getUser();
-  }
-  
     /**
      * Show the index page
      *
@@ -38,16 +33,16 @@ class Balance extends \Core\Controller
     public function showUserBudget($date){
       //$date = date('Y-m');
 
-      $this->expenses = $this->user->getExpenses($date);
-      $this->incomes = $this->user->getIncomes($date);
+      $expenses = User::getExpenses($date);
+      $incomes = User::getIncomes($date);
 
-      $expensesSum = $this->getSum($this->expenses);
-      $incomesSum = $this->getSum($this->incomes);
+      $expensesSum = $this->getSum($expenses);
+      $incomesSum = $this->getSum($incomes);
 
       View::renderTemplate('Balance/show.html', [
-        'expenses' => $this->expenses,
+        'expenses' => $expenses,
         'expensesSum' => $expensesSum,
-        'incomes' => $this->incomes,
+        'incomes' => $incomes,
         'incomesSum' => $incomesSum
       ]);
     }
@@ -59,22 +54,22 @@ class Balance extends \Core\Controller
     //
     public function showUserBalanceAction(){
       $data = $_POST;
-      $this->balance = $data['balance'];
+      $balance = $data['balance'];
       $this->fromDate = $data['from_date'];
       $this->toDate = $data['to_date'];
 
 
 
-      if($this->balance == "current_month"){
+      if($balance == "current_month"){
         $this->showUserBudget(date('Y-m'));
       }
-      if($this->balance == "previouse_month"){
+      if($balance == "previouse_month"){
         $this->showUserBudget(date('Y-m', strtotime('-1 month')));
       }
-      if($this->balance == "current_year"){
+      if($balance == "current_year"){
         $this->showUserBudget(date('Y'));
       }
-      if($this->balance == "user_period"){
+      if($balance == "user_period"){
         $this->showUserPeriod();
       }
 
@@ -93,16 +88,16 @@ class Balance extends \Core\Controller
     }
 
     public function showUserPeriod(){
-      $this->expenses = $this->user->getExpensesUserDate($this->fromDate, $this->toDate);
-      $this->incomes = $this->user->getIncomesUserDate($this->fromDate, $this->toDate);
+      $expenses = User::getExpensesUserDate($this->fromDate, $this->toDate);
+      $incomes = User::getIncomesUserDate($this->fromDate, $this->toDate);
 
-      $expensesSum = $this->getSum($this->expenses);
-      $incomesSum = $this->getSum($this->incomes);
+      $expensesSum = $this->getSum($expenses);
+      $incomesSum = $this->getSum($incomes);
 
       View::renderTemplate('Balance/show.html', [
-        'expenses' => $this->expenses,
+        'expenses' => $expenses,
         'expensesSum' => $expensesSum,
-        'incomes' => $this->incomes,
+        'incomes' => $incomes,
         'incomesSum' => $incomesSum
       ]);
     }

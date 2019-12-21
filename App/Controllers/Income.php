@@ -5,6 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Auth;
 use \App\Flash;
+use \App\Models\User;
 /**
  * Home controller
  *
@@ -12,12 +13,7 @@ use \App\Flash;
  */
 class Income extends \Core\Controller
 {
-    protected function before()
-    {
-      parent::before();
 
-      $this->user = Auth::getUser();
-    }
 
     /**
      * Show the index page
@@ -30,14 +26,14 @@ class Income extends \Core\Controller
     }
 
     public function addIncomeAction(){
-      if($this->user->addIncome($_POST, $this->user->id)){
+      if(User::addIncome($_POST, $_SESSION['user_id'])){
         $this->redirect('/Income/show-message-income');
       }
     }
 
     public function showMessageIncomeAction(){
       Flash::addMessage('Dodano do bazy danych.');
-      
+
       $this->redirect('/');
 
     }

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Auth;
 use \App\Flash;
+use \App\Models\User;
 
 /**
  * Home controller
@@ -13,12 +14,7 @@ use \App\Flash;
  */
 class Expense extends \Core\Controller
 {
-  protected function before()
-  {
-    parent::before();
 
-    $this->user = Auth::getUser();
-  }
 
     /**
      * Show the index page
@@ -32,7 +28,7 @@ class Expense extends \Core\Controller
 
     public function addExpenseAction(){
 
-      if($this->user->addExpense($_POST, $this->user->id)){
+      if(User::addExpense($_POST, $_SESSION['user_id'])){
         $this->redirect('/Expense/show-message-expenses');
       }
     }
