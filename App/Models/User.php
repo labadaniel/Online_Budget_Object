@@ -430,13 +430,13 @@ class User extends \Core\Model
 		return false;
 	}
 
-  private function getIncomeCategoryID(){
+  private static function getIncomeCategoryID($category, $id){
     //query("SELECT id FROM incomes_category_assigned_to_users WHERE name = '$category' AND user_id = '$id'"))
 
     $sql = "SELECT id
             FROM incomes_category_assigned_to_users
-            WHERE name = '$this->category'
-            AND user_id = '$this->id'";
+            WHERE name = '$category'
+            AND user_id = '$id'";
 
     $db = static::getDB();
     $stmt = $db->prepare($sql);
@@ -446,18 +446,18 @@ class User extends \Core\Model
     return $id_category['id'];
   }
 
-  public function addIncome($data, $id)
+  public static function addIncome($data, $id)
   {
-    $this->amount = $data['amount'];
+    $amount = $data['amount'];
     //$amount = $_POST['amount'];
-    $this->date = date('Y-m-d',strtotime($data['date']));
+    $date = date('Y-m-d',strtotime($data['date']));
     //$date = date('Y-m-d',strtotime($_POST['date']));
-    $this->category = $data['category'];
+    $category = $data['category'];
     //$category = $_POST['category'];
-    $this->comment = $data['comment'];
+    $comment = $data['comment'];
     //$comment = $_POST['comment'];
-    $this->id = $id;
-    $this->id_category = $this->getIncomeCategoryID();
+
+    $id_category = static::getIncomeCategoryID($category, $id);
 
 //"INSERT INTO incomes VALUES (NULL, '$id', '$id_category',  '$amount', '$date', '$comment')"
     $sql = "INSERT INTO incomes (user_id, income_category_assigned_to_user_id, amount, date_of_income, income_comment)
@@ -466,27 +466,26 @@ class User extends \Core\Model
     $db = static::getDB();
     $stmt = $db->prepare($sql);
 
-    $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
-    $stmt->bindValue(':income_category_assigned_to_user_id', $this->id_category, PDO::PARAM_INT);
-    $stmt->bindValue(':amount', $this->amount, PDO::PARAM_STR);
-    $stmt->bindValue(':date_of_income', $this->date, PDO::PARAM_STR);
-    $stmt->bindValue(':income_comment', $this->comment, PDO::PARAM_STR);
+    $stmt->bindValue(':user_id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':income_category_assigned_to_user_id', $id_category, PDO::PARAM_INT);
+    $stmt->bindValue(':amount', $amount, PDO::PARAM_STR);
+    $stmt->bindValue(':date_of_income', $date, PDO::PARAM_STR);
+    $stmt->bindValue(':income_comment', $comment, PDO::PARAM_STR);
 
     return $stmt->execute();
   }
 
-  public function addExpense($data, $id)
+  public static function addExpense($data, $id)
   {
 
     //query("INSERT INTO expenses VALUES (NULL, '$id', '$id_category', '$id_method', '$amount', '$date', '$comment')"
-    $this->amount = $data['amount'];
-    $this->date = date('Y-m-d',strtotime($data['date']));
-    $this->comment = $data['comment'];
-    $this->method = $data['method'];
-    $this->category = $data['category'];
-    $this->id = $id;
-    $this->id_category = $this->getExpenseCategoryID();
-    $this->id_method = $this->getMethodID();
+    $amount = $data['amount'];
+    $date = date('Y-m-d',strtotime($data['date']));
+    $comment = $data['comment'];
+    $method = $data['method'];
+    $category = $data['category'];
+    $id_category = static::getExpenseCategoryID($category, $id);
+    $id_method = static::getMethodID($method, $id);
 
     $sql = "INSERT INTO expenses (user_id, expense_category_assigned_to_user_id, payment_method_assigned_to_user_id, amount, date_of_expense, expense_comment)
             VALUES (:user_id, :expense_category_assigned_to_user_id, :payment_method_assigned_to_user_id, :amount, :date_of_expense, :expense_comment)";
@@ -494,23 +493,23 @@ class User extends \Core\Model
     $db = static::getDB();
     $stmt = $db->prepare($sql);
 
-    $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
-    $stmt->bindValue(':expense_category_assigned_to_user_id', $this->id_category, PDO::PARAM_INT);
-    $stmt->bindValue(':payment_method_assigned_to_user_id', $this->id_method, PDO::PARAM_INT);
-    $stmt->bindValue(':amount', $this->amount, PDO::PARAM_STR);
-    $stmt->bindValue(':date_of_expense', $this->date, PDO::PARAM_STR);
-    $stmt->bindValue(':expense_comment', $this->comment, PDO::PARAM_STR);
+    $stmt->bindValue(':user_id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':expense_category_assigned_to_user_id', $id_category, PDO::PARAM_INT);
+    $stmt->bindValue(':payment_method_assigned_to_user_id', $id_method, PDO::PARAM_INT);
+    $stmt->bindValue(':amount', $amount, PDO::PARAM_STR);
+    $stmt->bindValue(':date_of_expense', $date, PDO::PARAM_STR);
+    $stmt->bindValue(':expense_comment', $comment, PDO::PARAM_STR);
 
 
     return $stmt->execute();
   }
 
-  private function getExpenseCategoryID(){
+  private static function getExpenseCategoryID($category, $id){
 
     $sql = "SELECT id
             FROM expenses_category_assigned_to_users
-            WHERE name = '$this->category'
-            AND user_id = '$this->id'";
+            WHERE name = '$category'
+            AND user_id = '$id'";
 
     $db = static::getDB();
     $stmt = $db->prepare($sql);
@@ -520,12 +519,12 @@ class User extends \Core\Model
     return $id_category['id'];
   }
 
-  private function getMethodID(){
+  private static function getMethodID($method, $id){
 
     $sql = "SELECT id
             FROM payment_methods_assigned_to_users
-            WHERE name = '$this->method'
-            AND user_id = '$this->id'";
+            WHERE name = '$method'
+            AND user_id = '$id'";
 
     $db = static::getDB();
     $stmt = $db->prepare($sql);
@@ -585,12 +584,15 @@ class User extends \Core\Model
     return $id[0];
   }
 
-  public function getExpenses($date){
+  public static function getExpenses($date){
+
+    $id = $_SESSION['user_id'];
+
     $sql = "SELECT expuser.name, SUM(exp.amount) AS sum
             FROM expenses  AS exp
             INNER JOIN expenses_category_assigned_to_users AS expuser
             WHERE expuser.id = exp.expense_category_assigned_to_user_id
-            AND exp.user_id = '$this->id'
+            AND exp.user_id = '$id'
             AND exp.date_of_expense LIKE '%$date%'
             GROUP BY expuser.name
             ORDER BY exp.date_of_expense DESC";
@@ -602,12 +604,15 @@ class User extends \Core\Model
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function getExpensesUserDate($date1, $date2){
+  public static function getExpensesUserDate($date1, $date2){
+
+    $id = $_SESSION['user_id'];
+
     $sql = "SELECT expuser.name, SUM(exp.amount) AS sum
             FROM expenses  AS exp
             INNER JOIN expenses_category_assigned_to_users AS expuser
             WHERE expuser.id = exp.expense_category_assigned_to_user_id
-            AND exp.user_id = '$this->id'
+            AND exp.user_id = '$id'
             AND exp.date_of_expense >= '$date1'
             AND exp.date_of_expense <= '$date2'
             GROUP BY expuser.name
@@ -620,12 +625,15 @@ class User extends \Core\Model
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function getIncomes($date){
+  public static function getIncomes($date){
+
+    $id = $_SESSION['user_id'];
+
     $sql = "SELECT incuser.name, SUM(inc.amount) AS sum
             FROM incomes  AS inc
             INNER JOIN incomes_category_assigned_to_users AS incuser
             WHERE incuser.id = inc.income_category_assigned_to_user_id
-            AND inc.user_id = '$this->id'
+            AND inc.user_id = '$id'
             AND inc.date_of_income LIKE '%$date%'
             GROUP BY incuser.name
             ORDER BY inc.date_of_income DESC";
@@ -637,12 +645,15 @@ class User extends \Core\Model
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function getIncomesUserDate($date1, $date2){
+  public static function getIncomesUserDate($date1, $date2){
+
+    $id = $_SESSION['user_id'];
+
     $sql = "SELECT incuser.name, SUM(inc.amount) AS sum
             FROM incomes  AS inc
             INNER JOIN incomes_category_assigned_to_users AS incuser
             WHERE incuser.id = inc.income_category_assigned_to_user_id
-            AND inc.user_id = '$this->id'
+            AND inc.user_id = '$id'
             AND inc.date_of_income >= '$date1'
             AND inc.date_of_income <= '$date2'
             GROUP BY incuser.name
