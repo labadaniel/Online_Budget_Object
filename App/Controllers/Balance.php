@@ -22,28 +22,23 @@ class Balance extends \Core\Controller
     public function showAction()
     {
         $data = $this->showUserBudget(date('Y-m'));
-        View::renderTemplate('Balance/show.html', [
-          'expenses' => $this->expenses,
-          'expensesSum' => $expensesSum,
-          'incomes' => $this->incomes,
-          'incomesSum' => $incomesSum
-        ]);
+        
     }
 
     public function showUserBudget($date){
       //$date = date('Y-m');
 
-      $expenses = User::getExpenses($date);
-      $incomes = User::getIncomes($date);
+      $this->expenses = User::getExpenses($date);
+      $this->incomes = User::getIncomes($date);
 
-      $expensesSum = $this->getSum($expenses);
-      $incomesSum = $this->getSum($incomes);
+      $this->expensesSum = $this->getSum($this->expenses);
+      $this->incomesSum = $this->getSum($this->incomes);
 
       View::renderTemplate('Balance/show.html', [
-        'expenses' => $expenses,
-        'expensesSum' => $expensesSum,
-        'incomes' => $incomes,
-        'incomesSum' => $incomesSum
+        'expenses' => $this->expenses,
+        'expensesSum' => $this->expensesSum,
+        'incomes' => $this->incomes,
+        'incomesSum' => $this->incomesSum
       ]);
     }
 
