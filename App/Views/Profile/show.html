@@ -4,15 +4,111 @@
 
 {% block body %}
 
-    <h1>Profile</h1>
-	
-	<dl class="row">
-		<dt class="col-sm-3">Name</dt>
-		<dd class="col-sm-9">{{ user.name }} </dd>
-		<dt class="col-sm-3">Email</dt>
-		<dd class="col-sm-9">{{ user.email }} </dd>
-	</dl>
-	
-	<a href="/profile/edit">Edit</a>
+<div class="container-fluid no-gutters pt-2  " >
+
+  <div class="row justify-content-center mt-2 mb-2" >
+
+    <div class="col-5" >
+
+      <div class="accordion" id="changePassword">
+        <div class="tlo2 rounded">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <a class="btn btn-link text-decoration-none"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Profil
+              </a>
+            </h2>
+          </div>
+
+          <div id="collapseOne" class="collapse bg-secondary" aria-labelledby="headingOne" data-parent="#changePassword">
+            <div class="card-body">
+              <form method="post" id="formProfile" action="/profile/update">
+
+                  <div class="form-group">
+                      <label for="inputName">Name</label>
+                      <input id="inputName" name="name" placeholder="Name" value="{{ user.name }}" required class="form-control" />
+                  </div>
+                  <div class="form-group">
+                      <label for="inputEmail">Email address</label>
+                      <input id="inputEmail" name="email" placeholder="email address" value="{{ user.email }}" required type="email" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                      <label for="inputPassword">Password</label>
+                      <input type="password" id="inputPassword" name="password" placeholder="Password" aria-describedby="helpBlock" class="form-control" />
+          			      <span id="helpBlock" class="form-text text-secondary">Leave blank to keep current password</span>
+                  </div>
+
+                  <button type="submit" class="btn btn-outline-dark">Save</button>
+          		    <a class="btn btn-outline-dark" href="/profile/show">Cancel</a>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="incomeCategories">
+        <div class="tlo2 rounded">
+          <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+              <a class="btn btn-link text-decoration-none"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                Kategorie przychodów
+              </a>
+            </h2>
+          </div>
+
+          <div id="collapseTwo" class="collapse bg-secondary" aria-labelledby="headingTwo" data-parent="#incomeCategories">
+            <div class="card-body">
+              tutaj beda kategorie przychodów do zmiany
+              <button type="submit" class="btn btn-outline-dark">Save</button>
+              <a class="btn btn-outline-dark" href="/profile/show">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="expenseCategories">
+        <div class="tlo2 rounded">
+          <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+              <a class="btn btn-link text-decoration-none"  data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                Kategorie wydatków
+              </a>
+            </h2>
+          </div>
+
+          <div id="collapseThree" class="collapse bg-secondary" aria-labelledby="headingThree" data-parent="#expenseCategories">
+            <div class="card-body">
+              tutaj beda kategorie wydatków do zmiany
+              <button type="submit" class="btn btn-outline-dark">Save</button>
+              <a class="btn btn-outline-dark" href="/profile/show">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="methodPayment">
+        <div class="tlo2 rounded">
+          <div class="card-header" id="headingFour">
+            <h2 class="mb-0">
+              <a class="btn btn-link text-decoration-none"  data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                Sposoby płatności
+              </a>
+            </h2>
+          </div>
+
+          <div id="collapseFour" class="collapse bg-secondary" aria-labelledby="headingFour" data-parent="#methodPayment">
+            <div class="card-body">
+              tutaj beda sposoby płatności do zmiany
+              <button type="submit" class="btn btn-outline-dark">Save</button>
+              <a class="btn btn-outline-dark" href="/profile/show">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 {% endblock %}

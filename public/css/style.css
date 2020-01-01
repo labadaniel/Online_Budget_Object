@@ -30,7 +30,7 @@ body
 	min-height: 200px;
 }
 
-.modal {
+.modalUser {
   display: block; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
