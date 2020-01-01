@@ -19,7 +19,7 @@
 		<div class="container-fluid no-gutters">
 			<div class="row" >
 				<div class="col text-white tlo3" >
-						<p class="h1 text-center mt-4 mb-4"> Your Personal Budget </p>
+						<p class="h1 text-center mt-4 mb-4"><a href="/" class="text-decoration-none text-white"> Your Personal Budget </a></p>
 				</div>
 			</div>
 
@@ -60,7 +60,7 @@
             </li>
 
             <li class="nav-item px-3 ">
-              <a class="nav-link" href="#">Ustawienia</a>
+              <a class="nav-link" href="/Profile/show">Ustawienia</a>
             </li>
 
             <li class="nav-item px-3 ">
@@ -77,17 +77,14 @@
 
     <!-- Bootstrap CSS -->
 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-  </body>
+
+
 
     {% for message in flash_messages %}
 
       <!-- The Modal -->
-      <div class="modal" id="myModal">
+      <div class="modalUser" id="myModal">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
 
@@ -112,12 +109,42 @@
       </div>
 
     {% endfor %}
+    <!-- The Modal -->
+    <div class="modal fade" id="myModalBoot">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Ustawienia</h4>
+            <a href="" id="submit" class="close">&times;</a>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <a href="/" id="submit" class="btn btn-primary success">Ok</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
 
 
 
 		{% block footer %}
 		{% endblock %}
 	</div>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>
