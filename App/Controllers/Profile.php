@@ -17,7 +17,7 @@ class Profile extends Authenticated
 	protected function before()
 	{
 		parent::before();
-		
+
 		$this->user = Auth::getUser();
 	}
 
@@ -32,28 +32,34 @@ class Profile extends Authenticated
 			'user'=>$this->user
 			]);
     }
-	
+
 	public function editAction()
 	{
 		View::renderTemplate('profile/edit.html',[
 			'user'=>$this->user
 			]);
 	}
-	
+
 	public function updateAction()
 	{
-		
-		if ($this->user->updateProfile($_POST))
-		{
-			Flash::addMessage('Changes saved');
-			
-			$this->redirect('/profile/show');
-			
-		} else {
-			
-			View::renderTemplate('Profile/edit.html', [
-				'user' => $this->user
-			]);
+		if($_POST['updateProfile']){
+			if ($this->user->updateProfile($_POST))
+			{
+				Flash::addMessage('Changes saved');
+				$this->redirect('/profile/show');
+
+			} else {
+
+				View::renderTemplate('Profile/edit.html', [
+					'user' => $this->user
+				]);
+			}
 		}
+
+	}
+
+	public function updateIncomeAction(){
+
+
 	}
 }
