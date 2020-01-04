@@ -673,7 +673,23 @@ class User extends \Core\Model
     $sql = "SELECT *
             FROM incomes_category_assigned_to_users
             WHERE user_id = '$id'";
-            
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  }
+
+  public static function getUserExpensesList(){
+
+    $id = $_SESSION['user_id'];
+
+    $sql = "SELECT *
+            FROM expenses_category_assigned_to_users
+            WHERE user_id = '$id'";
+
     $db = static::getDB();
     $stmt = $db->prepare($sql);
 

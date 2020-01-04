@@ -68,6 +68,18 @@ class Profile extends Authenticated
 			echo $income["name"];
 			echo '</div></div>';
 		}
-
 	}
+
+	public function showUserExpensesListAction(){
+
+		$expenses = User::getUserExpensesList();
+
+		foreach($expenses as $expense){
+			echo '<div class="card bg-secondary"><div class="card-body">';
+			echo $expense["name"];
+			echo '</div></div>';
+		}
+	}
+
+
 }

@@ -52,6 +52,10 @@
             $('#headingTwo').click(function() {
               $('#collapseTwo').load("/Profile/show-user-incomes-list");
             });
+
+            $('#headingThree').click(function() {
+              $('#collapseThree').load("/Profile/show-user-expenses-list");
+            });
         });
     </script>
 
@@ -133,9 +137,7 @@
 
           <div id="collapseThree" class="collapse bg-secondary" aria-labelledby="headingThree" data-parent="#expenseCategories">
             <div class="card-body">
-              tutaj beda kategorie wydatków do zmiany
-              <button type="submit" class="btn btn-outline-dark">Save</button>
-              <a class="btn btn-outline-dark" href="/profile/show">Cancel</a>
+
             </div>
           </div>
         </div>
