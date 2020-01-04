@@ -6,7 +6,7 @@ namespace App\Controllers;
 use Core\View;
 use App\Auth;
 use App\Flash;
-
+use App\Models\User;
 /**
  * Account controller
  *
@@ -42,7 +42,8 @@ class Profile extends Authenticated
 
 	public function updateAction()
 	{
-		if($_POST['updateProfile']){
+		//echo var_dump($_POST); exit;
+		//if($_POST['updateProfile']){
 			if ($this->user->updateProfile($_POST))
 			{
 				Flash::addMessage('Changes saved');
@@ -50,16 +51,23 @@ class Profile extends Authenticated
 
 			} else {
 
-				View::renderTemplate('Profile/edit.html', [
+				View::renderTemplate('Profile/show.html', [
 					'user' => $this->user
 				]);
 			}
-		}
+		//}
 
 	}
 
-	public function updateIncomeAction(){
+	public function showUserIncomesListAction(){
 
+		$incomes = User::getUserIncomesList();
+
+		foreach($incomes as $income){
+			echo '<div class="card bg-secondary"><div class="card-body">';
+			echo $income["name"];
+			echo '</div></div>';
+		}
 
 	}
 }
