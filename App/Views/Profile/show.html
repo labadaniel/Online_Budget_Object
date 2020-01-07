@@ -83,22 +83,22 @@
             </h2>
           </div>
 
-          <div id="collapseOne" class="collapse bg-secondary" aria-labelledby="headingOne" data-parent="#changePassword">
+          <div id="collapseOne" class="collapse tlo4" aria-labelledby="headingOne" data-parent="#changePassword">
             <div class="card-body">
               <form method="post" id="formProfile" action="/profile/update">
 
                   <div class="form-group">
-                      <label for="inputName">Name</label>
+                      <label for="inputName">Imię</label>
                       <input id="inputName" name="name" placeholder="Name" value="{{ user.name }}" required class="form-control" />
                   </div>
                   <div class="form-group">
-                      <label for="inputEmail">Email address</label>
+                      <label for="inputEmail">Adres email</label>
                       <input id="inputEmail" name="email" placeholder="email address" value="{{ user.email }}" required type="email" class="form-control" />
                   </div>
                   <div class="form-group">
-                      <label for="inputPassword">Password</label>
-                      <input type="password" id="inputPassword" name="password" placeholder="Password" aria-describedby="helpBlock" class="form-control" />
-          			      <span id="helpBlock" class="form-text text-muted">Leave blank to keep current password</span>
+                      <label for="inputPassword">Hasło</label>
+                      <input type="password" id="inputPassword" name="password" placeholder="hasło" aria-describedby="helpBlock" class="form-control" />
+          			      <span id="helpBlock" class="form-text text-black-50">Zostaw puste pole jeśli nie zmieniasz hasła</span>
                   </div>
 
                   <button type="submit" name="updateProfile" value="1" class="btn btn-outline-dark">Save</button>
@@ -120,7 +120,7 @@
             </h2>
           </div>
 
-          <div id="collapseTwo" class="collapse bg-secondary" aria-labelledby="headingTwo" data-parent="#incomeCategories">
+          <div id="collapseTwo" class="collapse tlo3" aria-labelledby="headingTwo" data-parent="#incomeCategories">
             <div class="card-body">
 
 
@@ -139,7 +139,7 @@
             </h2>
           </div>
 
-          <div id="collapseThree" class="collapse bg-secondary" aria-labelledby="headingThree" data-parent="#expenseCategories">
+          <div id="collapseThree" class="collapse tlo3" aria-labelledby="headingThree" data-parent="#expenseCategories">
             <div class="card-body">
 
             </div>
@@ -157,7 +157,7 @@
             </h2>
           </div>
 
-          <div id="collapseFour" class="collapse bg-secondary" aria-labelledby="headingFour" data-parent="#methodPayment">
+          <div id="collapseFour" class="collapse tlo3" aria-labelledby="headingFour" data-parent="#methodPayment">
             <div class="card-body">
               tutaj beda sposoby płatności do zmiany
               <button type="submit" class="btn btn-outline-dark">Save</button>

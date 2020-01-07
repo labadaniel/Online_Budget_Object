@@ -64,7 +64,7 @@ class Profile extends Authenticated
 		$incomes = User::getUserIncomesList();
 
 		foreach($incomes as $income){
-			echo '<div class="card bg-secondary"><div class="card-body float-right">';
+			echo '<div class="card tlo4"><div class="card-body float-right">';
 			echo $income["name"];
 			echo '<div class="float-right pl-1">Edytuj</div>';
 			echo '<div class="float-right">Usuń</div>';
@@ -77,7 +77,7 @@ class Profile extends Authenticated
 		$expenses = User::getUserExpensesList();
 
 		foreach($expenses as $expense){
-			echo '<div class="card bg-secondary"><div class="card-body">';
+			echo '<div class="card tlo4"><div class="card-body">';
 			echo $expense["name"];
 			echo '<div class="float-right pl-1">Edytuj</div>';
 			echo '<div class="float-right">Usuń</div>';
@@ -89,7 +89,7 @@ class Profile extends Authenticated
 		$paymentMethods = User::getUserMethodPaymentList();
 
 		foreach($paymentMethods as $paymentMethod){
-			echo '<div class="card bg-secondary"><div class="card-body">';
+			echo '<div class="card tlo4"><div class="card-body">';
 			echo $paymentMethod["name"];
 			echo '<div class="float-right pl-1">Edytuj</div>';
 			echo '<div class="float-right">Usuń</div>';
