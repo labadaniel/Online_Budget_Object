@@ -698,5 +698,20 @@ class User extends \Core\Model
 
   }
 
+  public static function getUserMethodPaymentList(){
+    $id = $_SESSION['user_id'];
+
+    $sql = "SELECT *
+            FROM payment_methods_assigned_to_users
+            WHERE user_id = '$id'";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  }
+
 
 }
