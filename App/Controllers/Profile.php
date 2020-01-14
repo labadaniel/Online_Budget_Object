@@ -29,7 +29,10 @@ class Profile extends Authenticated
     public function showAction()
     {
         View::renderTemplate('Profile/show.html',[
-			'user'=>$this->user
+			'user'=>$this->user,
+			'expenses'=>User::getUserExpensesList(),
+			'incomes'=>User::getUserIncomesList(),
+			'methods'=>User::getUserMethodPaymentList()
 			]);
     }
 
@@ -46,7 +49,7 @@ class Profile extends Authenticated
 		//if($_POST['updateProfile']){
 			if ($this->user->updateProfile($_POST))
 			{
-				Flash::addMessage('Changes saved');
+				Flash::addMessage('Zmiany zapisane.');
 				$this->redirect('/profile/show');
 
 			} else {
@@ -57,44 +60,6 @@ class Profile extends Authenticated
 			}
 		//}
 
-	}
-
-	public function showUserIncomesListAction(){
-
-		$incomes = User::getUserIncomesList();
-
-		foreach($incomes as $income){
-			echo '<div class="card tlo4"><div class="card-body float-right">';
-			echo $income["name"];
-			echo '<div class="float-right pl-1">Edytuj</div>';
-			echo '<div class="float-right">Usuń</div>';
-			echo '</div></div>';
-		}
-	}
-
-	public function showUserExpensesListAction(){
-
-		$expenses = User::getUserExpensesList();
-
-		foreach($expenses as $expense){
-			echo '<div class="card tlo4"><div class="card-body">';
-			echo $expense["name"];
-			echo '<div class="float-right pl-1">Edytuj</div>';
-			echo '<div class="float-right">Usuń</div>';
-			echo '</div></div>';
-		}
-	}
-
-	public function showUserMethodPaymentListAction(){
-		$paymentMethods = User::getUserMethodPaymentList();
-
-		foreach($paymentMethods as $paymentMethod){
-			echo '<div class="card tlo4"><div class="card-body">';
-			echo $paymentMethod["name"];
-			echo '<div class="float-right pl-1">Edytuj</div>';
-			echo '<div class="float-right">Usuń</div>';
-			echo '</div></div>';
-		}
 	}
 
 
