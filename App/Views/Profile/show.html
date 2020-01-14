@@ -49,17 +49,6 @@
                 innerToggle: 'focus'
             });
 
-            $('#headingTwo').click(function() {
-              $('#collapseTwo').load("/Profile/show-user-incomes-list");
-            });
-
-            $('#headingThree').click(function() {
-              $('#collapseThree').load("/Profile/show-user-expenses-list");
-            });
-
-            $('#headingFour').click(function() {
-              $('#collapseFour').load("/Profile/show-user-method-payment-list");
-            });
         });
     </script>
 
@@ -101,8 +90,8 @@
           			      <span id="helpBlock" class="form-text text-black-50">Zostaw puste pole jeśli nie zmieniasz hasła</span>
                   </div>
 
-                  <button type="submit" name="updateProfile" value="1" class="btn btn-outline-dark">Save</button>
-          		    <a href="/profile/show" class="btn btn-outline-dark">Cancel</a>
+                  <button type="submit" name="updateProfile" value="1" class="btn btn-outline-dark">Zapisz</button>
+          		    <a href="/profile/show" class="btn btn-outline-dark">Cofnij</a>
 
               </form>
             </div>
@@ -120,9 +109,19 @@
             </h2>
           </div>
 
-          <div id="collapseTwo" class="collapse tlo3" aria-labelledby="headingTwo" data-parent="#incomeCategories">
+          <div id="collapseTwo" class="collapse tlo4" aria-labelledby="headingTwo" data-parent="#incomeCategories">
             <div class="card-body">
 
+              {% for income in incomes %}
+                <div class="card tlo4" id="{{ income.id }}">
+                  <div class="card-body float-right">
+                    {{ income.name }}
+                    <div class="float-right pl-1">Edytuj</div>
+              			<div class="float-right">Usuń</div>
+              		</div>
+              </div>
+
+              {% endfor %}
 
             </div>
           </div>
@@ -139,9 +138,19 @@
             </h2>
           </div>
 
-          <div id="collapseThree" class="collapse tlo3" aria-labelledby="headingThree" data-parent="#expenseCategories">
+          <div id="collapseThree" class="collapse tlo4" aria-labelledby="headingThree" data-parent="#expenseCategories">
             <div class="card-body">
 
+              {% for expense in expenses %}
+                <div class="card tlo4" id="{{ expense.id }}">
+                  <div class="card-body float-right">
+                    {{ expense.name }}
+                    <div class="float-right pl-1">Edytuj</div>
+              			<div class="float-right">Usuń</div>
+              		</div>
+              </div>
+
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -157,11 +166,20 @@
             </h2>
           </div>
 
-          <div id="collapseFour" class="collapse tlo3" aria-labelledby="headingFour" data-parent="#methodPayment">
+          <div id="collapseFour" class="collapse tlo4" aria-labelledby="headingFour" data-parent="#methodPayment">
             <div class="card-body">
-              tutaj beda sposoby płatności do zmiany
-              <button type="submit" class="btn btn-outline-dark">Save</button>
-              <a class="btn btn-outline-dark" href="/profile/show">Cancel</a>
+
+              {% for method in methods %}
+                <div class="card tlo4" id="{{ method.id }}">
+                  <div class="card-body float-right">
+                    {{ method.name }}
+                    <div class="float-right pl-1">Edytuj</div>
+              			<div class="float-right">Usuń</div>
+              		</div>
+              </div>
+
+              {% endfor %}
+
             </div>
           </div>
         </div>
