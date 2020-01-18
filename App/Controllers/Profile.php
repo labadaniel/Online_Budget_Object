@@ -60,6 +60,11 @@ class Profile extends Authenticated
 					$idIncome = $_REQUEST['editSubjectID'];
 					User::changeUserIncomeName($idIncome, $newName);
 					break;
+
+				case 'editMethod':
+					$idMethod = $_REQUEST['editSubjectID'];
+					User::changeUserMethodName($idMethod, $newName);
+					break;
 			}
 
 		}

@@ -55,7 +55,7 @@
               var subjectToChange = $(this).attr("id");
 
               $('.update').click(function(){
-                
+
                 $(this).load('/profile/update', {
 
                   editSubjectID: editID,
@@ -223,7 +223,7 @@
                   <div class="card tlo4">
                     <div class="card-body float-right">
                       {{ method.name }}
-                      <a class="float-right pl-1 edit" id="editMethod" name="{{ method.id }}">Edytuj</a>
+                      <a data-toggle="modal" data-target="#edit" class="edit float-right pl-1 " id="editMethod" name="{{ method.id }}">Edytuj</a>
                 			<a class="float-right delete" id="deleteMethod" name="{{ method.id }}">Usuń</a>
                 		</div>
                   </div>
