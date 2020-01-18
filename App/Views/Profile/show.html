@@ -49,12 +49,63 @@
                 innerToggle: 'focus'
             });
 
+            $('.edit').click(function(){
+
+              var editID = $(this).attr("name");
+              var subjectToChange = $(this).attr("id");
+
+              $('.update').click(function(){
+                
+                $(this).load('/profile/update', {
+
+                  editSubjectID: editID,
+                  newName: $('#name').val(),
+                  subject: subjectToChange
+
+                });
+              });
+            });
+
+
+
+            $('.deleteExpense').click(function(){
+              alert($(this).attr("name"));
+            });
+
         });
     </script>
 
 {% endblock %}
 
 {% block body %}
+
+<!-- Modal Header for editing-->
+<div class="modal fade" id="edit">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edycja</h4>
+        <a href="" id="submit" class="close">&times;</a>
+      </div>
+      <form class="">
+        <!-- Modal body -->
+        <div class="modal-body">
+
+            Podaj nową nazwę <input id="name" type="text" value="" />
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <a id="submit" class="btn btn-primary success update" data-dismiss="modal">Zapisz</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
 
 <div class="container-fluid no-gutters pt-2  " >
 
@@ -113,14 +164,13 @@
             <div class="card-body">
 
               {% for income in incomes %}
-                <div class="card tlo4" id="{{ income.id }}">
+                <div class="card tlo4" id="income{{ income.id }}">
                   <div class="card-body float-right">
                     {{ income.name }}
-                    <div class="float-right pl-1">Edytuj</div>
-              			<div class="float-right">Usuń</div>
+                    <a data-toggle="modal" data-target="#edit" class="edit float-right pl-1 " id="editIncome" name="{{ income.id }}">Edytuj</a>
+                    <a class="float-right delete" id="deleteIncome" name="{{ income.id }}">Usuń</a>
               		</div>
               </div>
-
               {% endfor %}
 
             </div>
@@ -142,15 +192,15 @@
             <div class="card-body">
 
               {% for expense in expenses %}
-                <div class="card tlo4" id="{{ expense.id }}">
+                <div class="card tlo4" id="expense{{ expense.id }}">
                   <div class="card-body float-right">
                     {{ expense.name }}
-                    <div class="float-right pl-1">Edytuj</div>
-              			<div class="float-right">Usuń</div>
+                    <a data-toggle="modal" data-target="#edit" class="edit float-right pl-1 " id="editExpense" name="{{ expense.id }}">Edytuj</a>
+                    <a class="float-right deleteExpense" id="deleteExpense" name="{{ expense.id }}">Usuń</a>
               		</div>
-              </div>
-
+                </div>
               {% endfor %}
+
             </div>
           </div>
         </div>
@@ -169,16 +219,15 @@
           <div id="collapseFour" class="collapse tlo4" aria-labelledby="headingFour" data-parent="#methodPayment">
             <div class="card-body">
 
-              {% for method in methods %}
-                <div class="card tlo4" id="{{ method.id }}">
-                  <div class="card-body float-right">
-                    {{ method.name }}
-                    <div class="float-right pl-1">Edytuj</div>
-              			<div class="float-right">Usuń</div>
-              		</div>
-              </div>
-
-              {% endfor %}
+                {% for method in methods %}
+                  <div class="card tlo4">
+                    <div class="card-body float-right">
+                      {{ method.name }}
+                      <a class="float-right pl-1 edit" id="editMethod" name="{{ method.id }}">Edytuj</a>
+                			<a class="float-right delete" id="deleteMethod" name="{{ method.id }}">Usuń</a>
+                		</div>
+                  </div>
+                {% endfor %}
 
             </div>
           </div>
@@ -187,6 +236,8 @@
 
     </div>
   </div>
+
+
 </div>
 
 {% endblock %}

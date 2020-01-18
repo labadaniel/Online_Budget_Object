@@ -45,22 +45,38 @@ class Profile extends Authenticated
 
 	public function updateAction()
 	{
-		//echo var_dump($_POST); exit;
-		//if($_POST['updateProfile']){
-			if ($this->user->updateProfile($_POST))
-			{
-				Flash::addMessage('Zmiany zapisane.');
-				$this->redirect('/profile/show');
+		if(isset($_REQUEST['newName'])){
 
-			} else {
+			$newName = $_REQUEST['newName'];
+			$subject = $_REQUEST['subject'];
 
-				View::renderTemplate('Profile/show.html', [
-					'user' => $this->user
-				]);
+			switch($subject){
+				case 'editExpense':
+					$idExpense = $_REQUEST['editSubjectID'];
+					User::changeUserExpenseName($idExpense, $newName);
+					break;
+
+				case 'editIncome':
+					$idIncome = $_REQUEST['editSubjectID'];
+					User::changeUserIncomeName($idIncome, $newName);
+					break;
 			}
-		//}
 
+		}
+
+		if ($this->user->updateProfile($_POST))
+		{
+			Flash::addMessage('Zmiany zapisane.');
+			$this->redirect('/profile/show');
+
+		} else {
+
+			View::renderTemplate('Profile/show.html', [
+				'user' => $this->user
+			]);
+		}
 	}
+
 
 
 }
