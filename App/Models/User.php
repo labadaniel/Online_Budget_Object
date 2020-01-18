@@ -733,5 +733,15 @@ class User extends \Core\Model
     return $stmt->execute();
   }
 
+  public static function changeUserMethodName($idMethod, $newName){
+
+    $sql = "UPDATE payment_methods_assigned_to_users
+            SET name = '$newName'
+            WHERE id = '$idMethod'";
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    return $stmt->execute();
+  }
+
 
 }
