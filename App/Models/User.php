@@ -713,5 +713,25 @@ class User extends \Core\Model
 
   }
 
+  public static function changeUserExpenseName($idExpense, $newName){
+
+    $sql = "UPDATE expenses_category_assigned_to_users
+            SET name = '$newName'
+            WHERE id = '$idExpense'";
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    return $stmt->execute();
+  }
+
+  public static function changeUserIncomeName($idIncome, $newName){
+
+    $sql = "UPDATE incomes_category_assigned_to_users
+            SET name = '$newName'
+            WHERE id = '$idIncome'";
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    return $stmt->execute();
+  }
+
 
 }
