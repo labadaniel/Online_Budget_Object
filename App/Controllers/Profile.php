@@ -67,6 +67,8 @@ class Profile extends Authenticated
 					break;
 			}
 
+			$this->redirect('/');
+
 		}
 
 		if ($this->user->updateProfile($_POST))
@@ -79,6 +81,28 @@ class Profile extends Authenticated
 			View::renderTemplate('Profile/show.html', [
 				'user' => $this->user
 			]);
+		}
+	}
+
+	public function deleteAction(){
+
+		$subject = $_REQUEST['subject'];
+
+		switch($subject){
+			case 'deleteExpense':
+				$idExpense = $_REQUEST['deleteSubjectID'];
+				User::deleteUserExpenseName($idExpense);
+				break;
+
+			case 'deleteIncome':
+				$idIncome = $_REQUEST['deleteSubjectID'];
+				User::deleteUserIncomeName($idIncome);
+				break;
+
+			case 'deleteMethod':
+				$idMethod = $_REQUEST['deleteSubjectID'];
+				User::deleteUserMethodName($idMethod);
+				break;
 		}
 	}
 

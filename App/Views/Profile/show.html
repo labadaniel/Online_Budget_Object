@@ -68,10 +68,21 @@
 
 
 
-            $('.deleteExpense').click(function(){
-              alert($(this).attr("name"));
-            });
+            $('.delete').click(function(){
 
+              var deleteID = $(this).attr("name");
+              var subjectToDelete = $(this).attr("id");
+
+              $('.confirmDelete').click(function(){
+                alert(deleteID);
+                alert(subjectToDelete);
+                $(this).load('/profile/delete', {
+
+                  deleteSubjectID: deleteID,
+                  subject: subjectToDelete
+                });
+              });
+            });
         });
     </script>
 
@@ -99,9 +110,38 @@
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <a id="submit" class="btn btn-primary success update" data-dismiss="modal">Zapisz</a>
+          <button id="submit" class="btn btn-primary success update" data-dismiss="modal" autofocus>Zapisz</button>
         </div>
       </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Header for deleting-->
+<div class="modal fade" id="delete">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edycja</h4>
+        <a href="" id="submit" class="close">&times;</a>
+      </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+
+            Napewno usunąć?
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button id="submit" class="btn btn-primary success confirmDelete" data-dismiss="modal">Tak</button>
+          <button id="submit" class="btn btn-primary success" data-dismiss="modal">Nie</button>
+        </div>
+
 
     </div>
   </div>
@@ -168,7 +208,7 @@
                   <div class="card-body float-right">
                     {{ income.name }}
                     <a data-toggle="modal" data-target="#edit" class="edit float-right pl-1 " id="editIncome" name="{{ income.id }}">Edytuj</a>
-                    <a class="float-right delete" id="deleteIncome" name="{{ income.id }}">Usuń</a>
+                    <a data-toggle="modal" data-target="#delete" class="float-right delete" id="deleteIncome" name="{{ income.id }}">Usuń</a>
               		</div>
               </div>
               {% endfor %}
@@ -196,7 +236,7 @@
                   <div class="card-body float-right">
                     {{ expense.name }}
                     <a data-toggle="modal" data-target="#edit" class="edit float-right pl-1 " id="editExpense" name="{{ expense.id }}">Edytuj</a>
-                    <a class="float-right deleteExpense" id="deleteExpense" name="{{ expense.id }}">Usuń</a>
+                    <a data-toggle="modal" data-target="#delete" class="float-right delete" id="deleteExpense" name="{{ expense.id }}">Usuń</a>
               		</div>
                 </div>
               {% endfor %}
@@ -224,7 +264,7 @@
                     <div class="card-body float-right">
                       {{ method.name }}
                       <a data-toggle="modal" data-target="#edit" class="edit float-right pl-1 " id="editMethod" name="{{ method.id }}">Edytuj</a>
-                			<a class="float-right delete" id="deleteMethod" name="{{ method.id }}">Usuń</a>
+                			<a data-toggle="modal" data-target="#delete" class="float-right delete" id="deleteMethod" name="{{ method.id }}">Usuń</a>
                 		</div>
                   </div>
                 {% endfor %}

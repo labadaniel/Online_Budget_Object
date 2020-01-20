@@ -743,5 +743,32 @@ class User extends \Core\Model
     return $stmt->execute();
   }
 
+  public static function deleteUserIncomeName($idIncome){
+
+    $sql = "DELETE FROM incomes_category_assigned_to_users
+            WHERE id = '$idIncome'";
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    return $stmt->execute();
+  }
+
+  public static function deleteUserExpenseName($idIncome){
+
+    $sql = "DELETE FROM expenses_category_assigned_to_users
+            WHERE id = '$idIncome'";
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    return $stmt->execute();
+  }
+
+  public static function deleteUserMethodName($idIncome){
+
+    $sql = "DELETE FROM payment_methods_assigned_to_users
+            WHERE id = '$idIncome'";
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    return $stmt->execute();
+  }
+
 
 }
