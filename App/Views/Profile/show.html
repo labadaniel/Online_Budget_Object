@@ -74,8 +74,7 @@
               var subjectToDelete = $(this).attr("id");
 
               $('.confirmDelete').click(function(){
-                alert(deleteID);
-                alert(subjectToDelete);
+
                 $(this).load('/profile/delete', {
 
                   deleteSubjectID: deleteID,
@@ -83,6 +82,19 @@
                 });
               });
             });
+
+            $('.add').click(function(){
+              var category = $(this).attr("name");
+
+              $('.confirmAdding').click(function(){
+
+                $(this).load('/profile/update', {
+                  newName: $('#addCategory').val(),
+                  subject: category
+                });
+              });
+            });
+
         });
     </script>
 
@@ -141,6 +153,36 @@
           <button id="submit" class="btn btn-primary success confirmDelete" data-dismiss="modal">Tak</button>
           <button id="submit" class="btn btn-primary success" data-dismiss="modal">Nie</button>
         </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Header for adding-->
+<div class="modal fade" id="add">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edycja</h4>
+        <a href="" id="submit" class="close">&times;</a>
+      </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+
+            Podaj nową nazwę
+            <input type="text" id="addCategory" value="">
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button id="submit" class="btn btn-primary success confirmAdding" data-dismiss="modal">Dodaj</button>
+        </div>
+
 
 
     </div>
@@ -212,6 +254,7 @@
               		</div>
               </div>
               {% endfor %}
+              <button type="button" data-toggle="modal" name="addIncomeCategory" data-target="#add" class="add tlo2 btn btn-primary mt-3">Dodaj nową kategorię</button>
 
             </div>
           </div>
@@ -240,6 +283,7 @@
               		</div>
                 </div>
               {% endfor %}
+              <button type="button" data-toggle="modal" name="addExpenseCategory" data-target="#add" class="add tlo2 btn btn-primary mt-3">Dodaj nową kategorię</button>
 
             </div>
           </div>
@@ -268,6 +312,7 @@
                 		</div>
                   </div>
                 {% endfor %}
+                <button type="button" data-toggle="modal" name="addMethodPaymentCategory" data-target="#add" class="add tlo2 btn btn-primary mt-3">Dodaj nową kategorię</button>
 
             </div>
           </div>

@@ -65,9 +65,21 @@ class Profile extends Authenticated
 					$idMethod = $_REQUEST['editSubjectID'];
 					User::changeUserMethodName($idMethod, $newName);
 					break;
+
+				case 'addIncomeCategory':
+					User::addNewIncomeCategory($newName);
+					break;
+
+				case 'addExpenseCategory':
+					User::addNewExpenseCategory($newName);
+					break;
+
+				case 'addMethodPaymentCategory':
+					User::addNewMethodPaymentCategory($newName);
+					break;
 			}
 
-			$this->redirect('/');
+
 
 		}
 
