@@ -23,7 +23,10 @@ class Expense extends \Core\Controller
      */
     public function showAction()
     {
-        View::renderTemplate('Expense/show.html');
+        View::renderTemplate('Expense/show.html',[
+          'expenses'=>User::getUserExpensesList(),
+          'methods'=>User::getUserMethodPaymentList()
+        ]);
     }
 
     public function addExpenseAction(){
