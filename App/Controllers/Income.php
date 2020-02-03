@@ -22,7 +22,9 @@ class Income extends \Core\Controller
      */
     public function showAction()
     {
-        View::renderTemplate('Income/show.html');
+        View::renderTemplate('Income/show.html', [
+          'incomes'=>User::getUserIncomesList()
+        ]);
     }
 
     public function addIncomeAction(){

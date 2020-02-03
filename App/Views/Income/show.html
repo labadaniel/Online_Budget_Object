@@ -39,29 +39,22 @@
             <div class="h5 border-bottom rounded">Kategoria</div>
               <div class="col-lg-12 float-left" >
                 <div class="form-check">
-                  <div>
-                    <input type="radio" name="category" value="Wynagrodzenie" class="form-check-input" required> Wynagrodzenie
-                  </div>
+
+                  {% for income in incomes %}
+
+                    <div>
+                      <input type="radio" name="category" value="{{ income.name }}" class="form-check-input" required> {{ income.name }}
+                    </div>
+
+                  {% endfor %}
+
+                <div class="form-check mt-1">
+                  <textarea name="comment" class="form-control" rows="1"></textarea>
                 </div>
-                <div class="form-check">
-                  <div>
-                    <input type="radio" name="category" value="Odsetki bankowe" class="form-check-input" required> Odsetki bankowe
-                  </div>
-                </div>
-                <div class="form-check">
-                  <div>
-                    <input type="radio" name="category" value="Allegro" class="form-check-input" required> Sprzedaż na Allegro
-                  </div>
-                </div>
-                <div class="form-check">
-                  <input type="radio" name="category"  value="Inne" class="form-check-input" required> Inne przychody
-                  <div class="form-group mt-2">
-                    <textarea name="comment" class="form-control" rows="1"></textarea>
-                  </div>
-                </div>
+                
               </div>
             </div>
-            <div class=" float-right mb-3">
+            <div class=" float-right mb-3 mt-5">
               <button class="tlo2 btn btn-primary float-right ml-4 hoverable" type="submit" name="submit" value="cancel" formnovalidate>Anuluj</button>
 
               <input class="tlo2 btn btn-primary float-right ml-4 hoverable" type="submit" name="submit" value="Dodaj" data-toggle="modal" data-target="#myModal">
