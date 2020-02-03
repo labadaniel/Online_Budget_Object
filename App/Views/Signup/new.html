@@ -58,45 +58,45 @@
             {% endfor %}
         </ul>
     {% endif %}
-	
+
 	<main class="d-block tlo1 h-100">
 		<div class="container-fluid no-gutters pt-5 " >
 			<div class="row justify-content-center" >
-			
+
 				<div class="col-4 p-4  text-white  h4 shadow-lg rounded" style="background-color: #4F788D">
 					<p class="text-center">Rejestracja</p>
 					<form class="h6 pt-2" method="post" action="/signup/create" id="formSignup">
 						<div class="form-group">
-							<div class="col-5">
+							<div class="col-8">
 								<label for="inputName"><i class="demo-icon icon-user"></i>Podaj swoje imię: </label>
 							</div>
-						
+
 							<div class="col-12">
 								<input id="inputName" name="name" placeholder="Imię" autofocus value="{{ user.name }}" required class="form-control" >
 							</div>
 						</div>
-						
+
 						<div class="form-group">
-							<div class="col-5">
+							<div class="col-8">
 								<label for="inputEmail"> <i class="demo-icon icon-mail"></i>Podaj swój email: </label>
 							</div>
-						
+
 							<div class="col-12">
 								<input id="inputEmail" name="email" placeholder="adres email" value="{{ user.email }}" required type="email" class="form-control" >
 							</div>
 						</div>
-						
+
 						<div class="form-group">
-							<div class="col-5">
+							<div class="col-8">
 								<label for="inputPassword"> <i class="demo-icon icon-key"></i>Podaj hasło: </label>
 							</div>
-						
+
 							<div class="col-12">
 								<input type="password" id="inputPassword" name="password" required class="form-control" placeholder="hasło">
 							</div>
-				
+
 						<button type="submit" class="tlo2 mt-3 btn btn-primary float-right ml-5 hoverable" >Dodaj konto</button>
-						
+
 					</form>
 				</div>
 			</div>
