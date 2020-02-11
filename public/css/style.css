@@ -73,3 +73,7 @@ body
   text-decoration: none;
   cursor: pointer;
 }
+
+.divider{
+	border-bottom: 1px solid #dee2e6;
+}

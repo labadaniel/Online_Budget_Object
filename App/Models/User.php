@@ -813,5 +813,21 @@ class User extends \Core\Model
     return $stmt->execute();
   }
 
+  public static function addLimitToCategory($idCategory, $newLimit){
+    $id = $_SESSION['user_id'];
+  
+    $sql = "UPDATE expenses_category_assigned_to_users
+            SET expenses_limit=:expenses_limit
+            WHERE id = '$idCategory'
+            AND user_id = '$id'";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':expenses_limit', $newLimit, PDO::PARAM_STR);
+
+    return $stmt->execute();
+  }
+
 
 }

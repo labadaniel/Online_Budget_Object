@@ -54,15 +54,30 @@
               var editID = $(this).attr("name");
               var subjectToChange = $(this).attr("id");
 
+
               $('.update').click(function(){
 
-                $(this).load('/profile/update', {
 
-                  editSubjectID: editID,
-                  newName: $('#name').val(),
-                  subject: subjectToChange
+                if ($('input[type=checkbox]').prop('checked')){
 
-                });
+                  $(this).load('/profile/update', {
+
+                    editSubjectID: editID,
+                    newLimit: $('#newLimit').val(),
+                    subject: subjectToChange
+
+                  });
+                  window.location.href = '/';
+                }else{
+                  $(this).load('/profile/update', {
+
+                    editSubjectID: editID,
+                    newName: $('#name').val(),
+                    subject: subjectToChange
+
+                  });
+                  window.location.href = '/';
+                }
               });
             });
 
@@ -80,6 +95,7 @@
                   deleteSubjectID: deleteID,
                   subject: subjectToDelete
                 });
+                window.location.href = '/';
               });
             });
 
@@ -92,6 +108,7 @@
                   newName: $('#addCategory').val(),
                   subject: category
                 });
+                window.location.href = '/';
               });
             });
 
@@ -116,13 +133,20 @@
         <!-- Modal body -->
         <div class="modal-body">
 
-            Podaj nową nazwę <input id="name" type="text" value="" />
+            Podaj nową nazwę <input id="name" type="text" value="" class="form-control "><br/>
+
+
+
+            <p><input type="checkbox" name="limitCheckBox"> Ustaw miesięczny limit</br>
+
+            Podaj limit <input id="newLimit" type="number" value="" name="newLimit" class="form-control"></p>
+
 
         </div>
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button id="submit" class="btn btn-primary success update" data-dismiss="modal" autofocus>Zapisz</button>
+          <a href="/"id="submit" class="btn btn-primary success update" data-dismiss="modal" autofocus>Zapisz</a>
         </div>
       </form>
 
@@ -175,6 +199,8 @@
 
             Podaj nową nazwę
             <input type="text" id="addCategory" value="">
+
+
 
         </div>
 

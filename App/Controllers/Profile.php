@@ -45,43 +45,51 @@ class Profile extends Authenticated
 
 	public function updateAction()
 	{
-		if(isset($_REQUEST['newName'])){
+		if(!empty($_REQUEST['newName'])){
 
 			$newName = $_REQUEST['newName'];
 			$subject = $_REQUEST['subject'];
 
-			switch($subject){
-				case 'editExpense':
-					$idExpense = $_REQUEST['editSubjectID'];
-					User::changeUserExpenseName($idExpense, $newName);
-					break;
+				switch($subject){
+					case 'editExpense':
+						$idExpense = $_REQUEST['editSubjectID'];
+						User::changeUserExpenseName($idExpense, $newName);
+						break;
 
-				case 'editIncome':
-					$idIncome = $_REQUEST['editSubjectID'];
-					User::changeUserIncomeName($idIncome, $newName);
-					break;
+					case 'editIncome':
+						$idIncome = $_REQUEST['editSubjectID'];
+						User::changeUserIncomeName($idIncome, $newName);
+						break;
 
-				case 'editMethod':
-					$idMethod = $_REQUEST['editSubjectID'];
-					User::changeUserMethodName($idMethod, $newName);
-					break;
+					case 'editMethod':
+						$idMethod = $_REQUEST['editSubjectID'];
+						User::changeUserMethodName($idMethod, $newName);
+						break;
 
-				case 'addIncomeCategory':
-					User::addNewIncomeCategory($newName);
-					break;
+					case 'addIncomeCategory':
+						User::addNewIncomeCategory($newName);
+						break;
 
-				case 'addExpenseCategory':
-					User::addNewExpenseCategory($newName);
-					break;
+					case 'addExpenseCategory':
+						User::addNewExpenseCategory($newName);
+						break;
 
-				case 'addMethodPaymentCategory':
-					User::addNewMethodPaymentCategory($newName);
-					break;
-			}
-
-
-
+					case 'addMethodPaymentCategory':
+						User::addNewMethodPaymentCategory($newName);
+						break;
+				}
 		}
+
+		if($_REQUEST['newLimit']){
+
+			$idCategory = $_REQUEST['editSubjectID'];
+			$newLimit = $_REQUEST['newLimit'];
+
+			User::addLimitToCategory($idCategory, $newLimit);
+
+			
+		}
+
 
 		if ($this->user->updateProfile($_POST))
 		{
