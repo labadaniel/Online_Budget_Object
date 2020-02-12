@@ -119,8 +119,8 @@
 
 {% block body %}
 
-<!-- Modal Header for editing-->
-<div class="modal fade" id="edit">
+<!-- Modal Header for editing expense-->
+<div class="modal fade" id="editExpense">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
 
@@ -137,10 +137,38 @@
 
 
 
-            <p><input type="checkbox" name="limitCheckBox"> Ustaw miesięczny limit</br>
+            <p><input type="checkbox" name="limitCheckBox"> Ustaw miesięczny limit<br/>
 
             Podaj limit <input id="newLimit" type="number" value="" name="newLimit" class="form-control"></p>
 
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <a href="/"id="submit" class="btn btn-primary success update" data-dismiss="modal" autofocus>Zapisz</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Header for editing income-->
+<div class="modal fade" id="editIncome">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edycja</h4>
+        <a href="" id="submit" class="close">&times;</a>
+      </div>
+      <form class="">
+        <!-- Modal body -->
+        <div class="modal-body">
+
+            Podaj nową nazwę <input id="name" type="text" value="" class="form-control ">
 
         </div>
 
@@ -275,7 +303,7 @@
                 <div class="card tlo4" id="income{{ income.id }}">
                   <div class="card-body float-right">
                     {{ income.name }}
-                    <a data-toggle="modal" data-target="#edit" class="edit float-right pl-1 " id="editIncome" name="{{ income.id }}"><i class="demo-icon icon-params"></i></a>
+                    <a data-toggle="modal" data-target="#editIncome" class="edit float-right pl-1 " id="editIncome" name="{{ income.id }}"><i class="demo-icon icon-params"></i></a>
                     <a data-toggle="modal" data-target="#delete" class="float-right delete" id="deleteIncome" name="{{ income.id }}"><i class="demo-icon icon-trash-empty"></i></a>
               		</div>
               </div>
@@ -304,7 +332,7 @@
                 <div class="card tlo4" id="expense{{ expense.id }}">
                   <div class="card-body float-right">
                     {{ expense.name }}
-                    <a data-toggle="modal" data-target="#edit" class="edit float-right pl-1 " id="editExpense" name="{{ expense.id }}"><i class="demo-icon icon-params"></i></a>
+                    <a data-toggle="modal" data-target="#editExpense" class="edit float-right pl-1 " id="editExpense" name="{{ expense.id }}"><i class="demo-icon icon-params"></i></a>
                     <a data-toggle="modal" data-target="#delete" class="float-right delete" id="deleteExpense" name="{{ expense.id }}"><i class="demo-icon icon-trash-empty"></i></a>
               		</div>
                 </div>
