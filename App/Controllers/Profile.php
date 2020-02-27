@@ -45,6 +45,7 @@ class Profile extends Authenticated
 
 	public function updateAction()
 	{
+		
 		if(!empty($_REQUEST['newName'])){
 
 			$newName = $_REQUEST['newName'];
@@ -87,7 +88,11 @@ class Profile extends Authenticated
 
 			User::addLimitToCategory($idCategory, $newLimit);
 
-			
+		}elseif($_REQUEST['newLimit']==0){
+
+			$idCategory = $_REQUEST['editSubjectID'];
+			$newLimit = NULL;
+			User::addLimitToCategory($idCategory, $newLimit);
 		}
 
 

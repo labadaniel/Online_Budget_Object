@@ -22,7 +22,7 @@ class Balance extends \Core\Controller
     public function showAction()
     {
         $data = $this->showUserBudget(date('Y-m'));
-        
+
     }
 
     public function showUserBudget($date){
@@ -71,7 +71,7 @@ class Balance extends \Core\Controller
 
     }
 
-    private function getSum($data){
+    public function getSum($data){
       $sum = 0;
       foreach($data as $row => $innerArray){
 
