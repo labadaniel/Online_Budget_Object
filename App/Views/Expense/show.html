@@ -2,21 +2,71 @@
 
 {% block title %}Profile{% endblock %}
 
+{% block footer %}
+  <script>
+    $(document).ready(function(){
+      //$("input[name='category']").click(function(){
+        $("div.expenses").click(function(){
+        //alert($(this).attr('value'));
+          $('#categoryLimit').empty();
+          $('#Limit').empty();
+
+
+          var category = $(this).attr('name');
+          var limit = $(this).attr('value');
+          limit = parseInt(limit);
+          var currentBalance = 1000;
+
+          var newBalance = limit + currentBalance;
+
+
+          if(limit>0){
+
+
+              $('#test').removeClass("d-none").addClass("d-block col-9 p-4 border alert alert-success").fadeOut(0).fadeIn(200);
+
+
+
+
+            $('#categoryLimit').text(category);
+            $('#Limit').html(newBalance);
+          }else{
+            $('#test').removeClass("d-block").addClass("d-none col-9 p-4 border alert alert-success");
+          }
+
+
+
+
+
+
+
+      });
+    });
+
+  </script>
+{% endblock %}
+
 {% block body %}
 
 <main class="d-block tlo1 h-100" >
   <div class="container-fluid no-gutters pt-2  " >
 
     <div class="row justify-content-center mt-2 mb-2" >
+      <div id="test" class="d-block">
+        <span id="categoryLimit"></span>
+        <span id="Limit"></span>
+      </div>
+      <div class="col-9 pt-1 d-block pb-1 text-white  shadow-lg rounded mb-5" style="background-color: #4F788D">
 
-      <div class="col-9 pt-1  pb-1 text-white  shadow-lg rounded mb-5" style="background-color: #4F788D">
+
+
         <form method="post" action="add-expense" id="formField">
 
           <div class="text-center h4 pb-3">Dodaj wydatek</div>
 
-          <div class="col-sm-12 col-lg-5 p-2 float-left">
+          <div class="col-sm-12 col-lg-4 p-2 float-left">
             <div class="h5 border-bottom rounded">Wydatek	</div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="form-group">
                   <div class="col">
                     <label for="amount">Podaj kwotę: </label>
@@ -35,7 +85,7 @@
                 </div>
             </div>
             <div class="h5 border-bottom rounded">Sposób płatności</div>
-            <div class=" col-md-6 pt-1">
+            <div class=" col-md-12 pt-1">
 
               {% for method in methods %}
 
@@ -47,7 +97,7 @@
 
             </div>
           </div>
-          <div class=" col-md-12 col-lg-6  p-2 float-left">
+          <div class=" col-md-12 col-lg-8  p-2 float-left">
             <div class="h5 border-bottom rounded">Kategoria</div>
 
             <div class="col-lg-5 float-left">
@@ -57,7 +107,14 @@
                 {% if loop.index < 12 %}
 
                   <div class="form-check">
+                    <div class="expenses" value="{{ expense.expenses_limit }}" name="{{ expense.name}}">
+
+
                       <input type="radio" name="category" value="{{expense.name}}" class="form-check-input" required> {{ expense.name}}
+                      {% if expense.expenses_limit==true %}
+                      <span class="text-info" value="{{expense.expenses_limit}}">  (Limit: {{ expense.expenses_limit }})<span>
+                      {% endif %}
+                    </div>
                   </div>
                 {% endif%}
 
@@ -71,7 +128,13 @@
                 {% if loop.index > 11 %}
 
                   <div class="form-check">
+
+                    <div class="expenses" value="{{ expense.expenses_limit }}" name="{{ expense.name}}">
                       <input type="radio" name="category" value="{{expense.name}}" class="form-check-input" required> {{ expense.name}}
+                      {% if expense.expenses_limit==true %}
+                      <span class="text-info limit"> (Limit: {{ expense.expenses_limit }})<span>
+                      {% endif %}
+                    </div>
 
                   </div>
                 {% endif%}

@@ -588,7 +588,7 @@ class User extends \Core\Model
 
     $id = $_SESSION['user_id'];
 
-    $sql = "SELECT expuser.name, SUM(exp.amount) AS sum
+    $sql = "SELECT expuser.name, expuser.expenses_limit, SUM(exp.amount) AS sum
             FROM expenses  AS exp
             INNER JOIN expenses_category_assigned_to_users AS expuser
             WHERE expuser.id = exp.expense_category_assigned_to_user_id
@@ -815,7 +815,9 @@ class User extends \Core\Model
 
   public static function addLimitToCategory($idCategory, $newLimit){
     $id = $_SESSION['user_id'];
-  
+
+    
+
     $sql = "UPDATE expenses_category_assigned_to_users
             SET expenses_limit=:expenses_limit
             WHERE id = '$idCategory'
@@ -824,7 +826,7 @@ class User extends \Core\Model
     $db = static::getDB();
     $stmt = $db->prepare($sql);
 
-    $stmt->bindValue(':expenses_limit', $newLimit, PDO::PARAM_STR);
+    $stmt->bindValue(':expenses_limit', $newLimit, PDO::PARAM_INT);
 
     return $stmt->execute();
   }
