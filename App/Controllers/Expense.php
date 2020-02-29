@@ -26,7 +26,7 @@ class Expense extends \Core\Controller
         View::renderTemplate('Expense/show.html',[
           'expenses'=>User::getUserExpensesList(),
           'methods'=>User::getUserMethodPaymentList(),
-          'limits'=>User::getExpenses(date('Y-m'))
+          'currentBalance'=>User::getExpenses(date('Y-m'))
         ]);
     }
 
