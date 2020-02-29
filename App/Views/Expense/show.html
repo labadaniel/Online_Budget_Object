@@ -5,41 +5,52 @@
 {% block footer %}
   <script>
     $(document).ready(function(){
-      //$("input[name='category']").click(function(){
-        $("div.expenses").click(function(){
-        //alert($(this).attr('value'));
-          $('#categoryLimit').empty();
-          $('#Limit').empty();
 
+        $("div.expenses").click(function(){
+
+          $('.categoryLimit').empty();
+          $('#Limit').empty();
 
           var category = $(this).attr('name');
           var limit = $(this).attr('value');
           limit = parseInt(limit);
-          var currentBalance = 1000;
-
-          var newBalance = limit + currentBalance;
+          var currentBalance = $('#'+category).attr('value');
+          currentBalance = parseInt(currentBalance);
+          var newBalance = currentBalance + limit;
+          var difference = limit - currentBalance;
+          var userAmount = $('input[name="amount"]').val();
+          userAmount = parseInt(userAmount);
 
 
           if(limit>0){
+            var finalBalance =  userAmount + currentBalance;
+            if(finalBalance > limit){
+
+              $('#test').removeClass("d-none alert-success").addClass("d-block col-9 p-4 border alert alert-warning").fadeOut(0).fadeIn(200);
+
+            }else{
+
+              $('#test').removeClass("d-none alert-warning").addClass("d-block col-9 p-4 border alert alert-success").fadeOut(0).fadeIn(200);
+
+            }
 
 
-              $('#test').removeClass("d-none").addClass("d-block col-9 p-4 border alert alert-success").fadeOut(0).fadeIn(200);
 
+              $('.categoryLimit').append(
+                                    '<div class="col-3 d-inline-block">Limit: <br>'+limit+"zł</div>");
 
+              $('.categoryLimit').append(
+                                    '<div class="col-3 d-inline-block">Dotychczas wydano: <br>'+currentBalance+"zł</div>");
 
+              $('.categoryLimit').append(
+                                    '<div class="col-3 d-inline-block">Różnica: <br>'+difference+"zł</div>");
 
-            $('#categoryLimit').text(category);
-            $('#Limit').html(newBalance);
+              $('.categoryLimit').append(
+                                    '<div class="col-3 d-inline-block">Wydatki + wpisana kwota: <br>'+finalBalance+"zł</div>");
+
           }else{
             $('#test').removeClass("d-block").addClass("d-none col-9 p-4 border alert alert-success");
           }
-
-
-
-
-
-
-
       });
     });
 
@@ -53,12 +64,10 @@
 
     <div class="row justify-content-center mt-2 mb-2" >
       <div id="test" class="d-block">
-        <span id="categoryLimit"></span>
+        <div class="categoryLimit d-block"></div>
         <span id="Limit"></span>
       </div>
       <div class="col-9 pt-1 d-block pb-1 text-white  shadow-lg rounded mb-5" style="background-color: #4F788D">
-
-
 
         <form method="post" action="add-expense" id="formField">
 
@@ -113,6 +122,18 @@
                       <input type="radio" name="category" value="{{expense.name}}" class="form-check-input" required> {{ expense.name}}
                       {% if expense.expenses_limit==true %}
                       <span class="text-info" value="{{expense.expenses_limit}}">  (Limit: {{ expense.expenses_limit }})<span>
+
+
+                        {% for currentB in currentBalance %}
+
+                          {% if expense.name == currentB.name %}
+                            <div id="{{currentB.name}}" value="{{ currentB.sum }}"></div>
+
+                            {% endif %}
+                        {% endfor%}
+
+
+
                       {% endif %}
                     </div>
                   </div>
