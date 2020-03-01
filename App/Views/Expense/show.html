@@ -6,50 +6,55 @@
   <script>
     $(document).ready(function(){
 
+
         $("div.expenses").click(function(){
 
-          $('.categoryLimit').empty();
-          $('#Limit').empty();
+          $('.userLimit').empty();
+
 
           var category = $(this).attr('name');
           var limit = $(this).attr('value');
           limit = parseInt(limit);
+
           var currentBalance = $('#'+category).attr('value');
+          if(isNaN(currentBalance)){
+            currentBalance = 0;
+          }
           currentBalance = parseInt(currentBalance);
+
           var newBalance = currentBalance + limit;
           var difference = limit - currentBalance;
           var userAmount = $('input[name="amount"]').val();
+          if(isNaN(userAmount) || userAmount==""){
+            userAmount = 0;
+          }
           userAmount = parseInt(userAmount);
-
 
           if(limit>0){
             var finalBalance =  userAmount + currentBalance;
             if(finalBalance > limit){
 
-              $('#test').removeClass("d-none alert-success").addClass("d-block col-9 p-4 border alert alert-warning").fadeOut(0).fadeIn(200);
+              $('#inputAlert').removeClass("d-none alert-success").addClass("d-block col-9 p-4 border alert alert-warning").fadeOut(0).fadeIn(200);
 
             }else{
 
-              $('#test').removeClass("d-none alert-warning").addClass("d-block col-9 p-4 border alert alert-success").fadeOut(0).fadeIn(200);
+              $('#inputAlert').removeClass("d-none alert-warning").addClass("d-block col-9 p-4 border alert alert-success").fadeOut(0).fadeIn(200);
 
             }
-
-
-
-              $('.categoryLimit').append(
+              $('.userLimit').append(
                                     '<div class="col-3 d-inline-block">Limit: <br>'+limit+"zł</div>");
 
-              $('.categoryLimit').append(
+              $('.userLimit').append(
                                     '<div class="col-3 d-inline-block">Dotychczas wydano: <br>'+currentBalance+"zł</div>");
 
-              $('.categoryLimit').append(
+              $('.userLimit').append(
                                     '<div class="col-3 d-inline-block">Różnica: <br>'+difference+"zł</div>");
 
-              $('.categoryLimit').append(
+              $('.userLimit').append(
                                     '<div class="col-3 d-inline-block">Wydatki + wpisana kwota: <br>'+finalBalance+"zł</div>");
 
           }else{
-            $('#test').removeClass("d-block").addClass("d-none col-9 p-4 border alert alert-success");
+            $('#inputAlert').removeClass("d-block").addClass("d-none col-9 p-4 border alert alert-success");
           }
       });
     });
@@ -63,8 +68,8 @@
   <div class="container-fluid no-gutters pt-2  " >
 
     <div class="row justify-content-center mt-2 mb-2" >
-      <div id="test" class="d-block">
-        <div class="categoryLimit d-block"></div>
+      <div id="inputAlert" class="d-block">
+        <div class="userLimit d-block"></div>
         <span id="Limit"></span>
       </div>
       <div class="col-9 pt-1 d-block pb-1 text-white  shadow-lg rounded mb-5" style="background-color: #4F788D">
