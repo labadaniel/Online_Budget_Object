@@ -31,7 +31,7 @@ class Mail
 		  [
 			'From' => [
 			  'Email' => "laba.daniel@gmail.com",
-			  'Name' => "Daniel"
+			  'Name' => "Admin"
 			],
 			'To' => [
 			  [

@@ -11,7 +11,7 @@ use \App\Models\User;
  *
  * PHP version 7.0
  */
-class Income extends \Core\Controller
+class Income extends Authenticated
 {
 
 
@@ -28,17 +28,9 @@ class Income extends \Core\Controller
     }
 
     public function addIncomeAction(){
-      if(User::addIncome($_POST, $_SESSION['user_id'])){
-        $this->redirect('/Income/show-message-income');
+      if(User::addIncome($_POST)){
+        Flash::addMessage('Dodano do bazy danych.');
+        $this->redirect('/');
       }
     }
-
-    public function showMessageIncomeAction(){
-      Flash::addMessage('Dodano do bazy danych.');
-
-      $this->redirect('/');
-
-    }
-
-
 }
