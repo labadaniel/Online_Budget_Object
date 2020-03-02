@@ -46,7 +46,7 @@ class Profile extends Authenticated
 	public function updateAction()
 	{
 
-		if(!empty($_REQUEST['newName'])){
+		if(!empty($_POST['newName'])){
 
 			$newName = $_REQUEST['newName'];
 			$subject = $_REQUEST['subject'];
@@ -79,20 +79,20 @@ class Profile extends Authenticated
 						User::addNewMethodPaymentCategory($newName);
 						break;
 				}
-		}
+		}elseif(isset($_REQUEST['newLimit'])){
+			if($_REQUEST['newLimit']==0){
 
-		if($_REQUEST['newLimit']){
+				$idCategory = $_REQUEST['editSubjectID'];
+				$newLimit = NULL;
+				User::addLimitToCategory($idCategory, $newLimit);
+			}else{
+				$idCategory = $_REQUEST['editSubjectID'];
+				$newLimit = $_REQUEST['newLimit'];
 
-			$idCategory = $_REQUEST['editSubjectID'];
-			$newLimit = $_REQUEST['newLimit'];
+				User::addLimitToCategory($idCategory, $newLimit);
+			}
 
-			User::addLimitToCategory($idCategory, $newLimit);
 
-		}elseif($_REQUEST['newLimit']==0){
-
-			$idCategory = $_REQUEST['editSubjectID'];
-			$newLimit = NULL;
-			User::addLimitToCategory($idCategory, $newLimit);
 		}
 
 

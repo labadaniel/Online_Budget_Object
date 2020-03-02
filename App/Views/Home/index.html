@@ -7,7 +7,18 @@
 
 
     {% if current_user %}
-        Hello {{ current_user.name }}.
+        <div class="row d-block text-center pt-5 pb-5 h4">
+          Witaj {{ current_user.name }}!
+        </div>
+
+
+        <div class="row col d-block text-center pt-5">
+          <blockquote class="blockquote">
+            <p class="mb-0 font-italic">"Oszczędzaj i inwestuj dla zysku połowę każdej podwyżki dochodów lub wynagrodzenia aż do końca zawodo."</p>
+            <footer class="blockquote-footer">Brian Tracy</footer>
+          </blockquote>
+
+        </div>
 
     {% else %}
 	<main class="tlo1 h-100">
