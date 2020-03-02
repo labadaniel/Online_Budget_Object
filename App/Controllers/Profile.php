@@ -45,7 +45,7 @@ class Profile extends Authenticated
 
 	public function updateAction()
 	{
-		
+
 		if(!empty($_REQUEST['newName'])){
 
 			$newName = $_REQUEST['newName'];

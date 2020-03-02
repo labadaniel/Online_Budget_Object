@@ -446,8 +446,9 @@ class User extends \Core\Model
     return $id_category['id'];
   }
 
-  public static function addIncome($data, $id)
+  public static function addIncome($data)
   {
+    $id = $_SESSION['user_id'];
     $amount = $data['amount'];
     //$amount = $_POST['amount'];
     $date = date('Y-m-d',strtotime($data['date']));
@@ -816,7 +817,7 @@ class User extends \Core\Model
   public static function addLimitToCategory($idCategory, $newLimit){
     $id = $_SESSION['user_id'];
 
-    
+
 
     $sql = "UPDATE expenses_category_assigned_to_users
             SET expenses_limit=:expenses_limit

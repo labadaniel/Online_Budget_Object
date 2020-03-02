@@ -12,7 +12,7 @@ use \App\Models\User;
  *
  * PHP version 7.0
  */
-class Expense extends \Core\Controller
+class Expense extends Authenticated
 {
 
 
@@ -33,12 +33,8 @@ class Expense extends \Core\Controller
     public function addExpenseAction(){
 
       if(User::addExpense($_POST, $_SESSION['user_id'])){
-        $this->redirect('/Expense/show-message-expenses');
+        Flash::addMessage('Dodano do bazy danych.');
+        $this->redirect('/');
       }
-    }
-
-    public function showMessageExpensesAction(){
-      Flash::addMessage('Dodano do bazy danych.');
-      $this->redirect('/');
     }
 }
