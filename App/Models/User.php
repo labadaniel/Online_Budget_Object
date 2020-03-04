@@ -881,6 +881,7 @@ class User extends \Core\Model
   public static function checkIfTheOtherExpenseExist(){
     $id = $_SESSION['user_id'];
 
+
     $sql = "SELECT name
             FROM expenses_category_assigned_to_users
             WHERE user_id = :user_id
@@ -896,6 +897,24 @@ class User extends \Core\Model
     return $stmt->execute();
   }
 
+  public static function checkIfTheOtherIncomeExist(){
+    $id = $_SESSION['user_id'];
+
+
+    $sql = "SELECT name
+            FROM incomes_category_assigned_to_users
+            WHERE user_id = :user_id
+            AND name = :name";
+
+    $db = static::getDB();
+
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', 'Inne', PDO::PARAM_STR);
+
+    return $stmt->execute();
+  }
 
 
 }
