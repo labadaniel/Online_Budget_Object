@@ -87,6 +87,7 @@
 
               var deleteID = $(this).attr("name");
               var subjectToDelete = $(this).attr("id");
+              
 
               $('.confirmDelete').click(function(){
 
@@ -94,6 +95,7 @@
 
                   deleteSubjectID: deleteID,
                   subject: subjectToDelete
+
                 });
                 window.location.href = '/';
               });
@@ -196,7 +198,8 @@
         <!-- Modal body -->
         <div class="modal-body">
 
-            Napewno usunąć?
+            Napewno usunąć?<br><br>
+            Jeśli wcześniej były jakieś dane wprowadzone pod tą kategorią zostaną one przeniesone do kategorii "Inne".
 
         </div>
 
@@ -333,7 +336,7 @@
                   <div class="card-body float-right">
                     {{ expense.name }}
                     <a data-toggle="modal" data-target="#editExpense" class="edit float-right pl-1 " id="editExpense" name="{{ expense.id }}"><i class="demo-icon icon-params"></i></a>
-                    <a data-toggle="modal" data-target="#delete" class="float-right delete" id="deleteExpense" name="{{ expense.id }}"><i class="demo-icon icon-trash-empty"></i></a>
+                    <a data-toggle="modal" data-target="#delete" class="float-right delete" id="deleteExpense" name="{{ expense.id }}" ><i class="demo-icon icon-trash-empty"></i></a>
                       {% if expense.expenses_limit==true %}
                       <span class="text-info"> (Limit: {{ expense.expenses_limit }})<span>
                       {% endif %}

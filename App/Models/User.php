@@ -832,5 +832,70 @@ class User extends \Core\Model
     return $stmt->execute();
   }
 
+  public static function copyDeletedExpenseToOther($idCategory){
+
+    $id = $_SESSION['user_id'];
+
+    $idOther = static::getExpenseCategoryID("Inne", $id);
+
+    $sql = "UPDATE expenses
+            SET expense_category_assigned_to_user_id = :idOther
+            WHERE user_id = :id
+            AND expense_category_assigned_to_user_id = :idCategory
+            ";
+
+    $db = static::getDB();
+
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':idOther', $idOther, PDO::PARAM_INT);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':idCategory', $idCategory, PDO::PARAM_INT);
+
+    return $stmt->execute();
+  }
+
+  public static function copyDeletedIncomeToOther($idCategory){
+
+    $id = $_SESSION['user_id'];
+
+    $idOther = static::getIncomeCategoryID("Inne", $id);
+
+    $sql = "UPDATE incomes
+            SET income_category_assigned_to_user_id = :idOther
+            WHERE user_id = :id
+            AND income_category_assigned_to_user_id = :idCategory
+            ";
+
+    $db = static::getDB();
+
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':idOther', $idOther, PDO::PARAM_INT);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':idCategory', $idCategory, PDO::PARAM_INT);
+
+    return $stmt->execute();
+  }
+
+  public static function checkIfTheOtherExpenseExist(){
+    $id = $_SESSION['user_id'];
+
+    $sql = "SELECT name
+            FROM expenses_category_assigned_to_users
+            WHERE user_id = :user_id
+            AND name = :name";
+
+    $db = static::getDB();
+
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', 'Inne', PDO::PARAM_STR);
+
+    return $stmt->execute();
+  }
+
+
 
 }

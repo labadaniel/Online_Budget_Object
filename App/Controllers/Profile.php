@@ -112,23 +112,37 @@ class Profile extends Authenticated
 	public function deleteAction(){
 
 		$subject = $_REQUEST['subject'];
+		
 
-		switch($subject){
-			case 'deleteExpense':
-				$idExpense = $_REQUEST['deleteSubjectID'];
-				User::deleteUserExpenseName($idExpense);
-				break;
 
-			case 'deleteIncome':
-				$idIncome = $_REQUEST['deleteSubjectID'];
-				User::deleteUserIncomeName($idIncome);
-				break;
+			switch($subject){
+				case 'deleteExpense':
 
-			case 'deleteMethod':
-				$idMethod = $_REQUEST['deleteSubjectID'];
-				User::deleteUserMethodName($idMethod);
-				break;
+					$idExpense = $_REQUEST['deleteSubjectID'];
+
+					if(User::copyDeletedExpenseToOther($idExpense)){
+						User::deleteUserExpenseName($idExpense);
+					}
+					break;
+
+				case 'deleteIncome':
+					$idIncome = $_REQUEST['deleteSubjectID'];
+
+					if(User::copyDeletedIncomeToOther($idIncome)){
+						User::deleteUserIncomeName($idIncome);
+					}
+					break;
+
+				case 'deleteMethod':
+					$idMethod = $_REQUEST['deleteSubjectID'];
+					User::deleteUserMethodName($idMethod);
+					break;
+
+
 		}
+
+
+
 	}
 
 
