@@ -112,13 +112,17 @@ class Profile extends Authenticated
 	public function deleteAction(){
 
 		$subject = $_REQUEST['subject'];
-		
+
 
 
 			switch($subject){
 				case 'deleteExpense':
 
 					$idExpense = $_REQUEST['deleteSubjectID'];
+
+					if(User::checkIfTheOtherExpenseExist()){
+						User::addNewExpenseCategory('Inne');
+					}
 
 					if(User::copyDeletedExpenseToOther($idExpense)){
 						User::deleteUserExpenseName($idExpense);
@@ -127,6 +131,10 @@ class Profile extends Authenticated
 
 				case 'deleteIncome':
 					$idIncome = $_REQUEST['deleteSubjectID'];
+
+					if(User::checkIfTheOtherIncomeExist()){
+						User::addNewIncomeCategory('Inne');
+					}
 
 					if(User::copyDeletedIncomeToOther($idIncome)){
 						User::deleteUserIncomeName($idIncome);
