@@ -91,10 +91,7 @@ class Profile extends Authenticated
 
 				User::addLimitToCategory($idCategory, $newLimit);
 			}
-
-
 		}
-
 
 		if ($this->user->updateProfile($_POST))
 		{
@@ -113,14 +110,12 @@ class Profile extends Authenticated
 
 		$subject = $_REQUEST['subject'];
 
-
-
 			switch($subject){
 				case 'deleteExpense':
 
 					$idExpense = $_REQUEST['deleteSubjectID'];
 
-					if(User::checkIfTheOtherExpenseExist()){
+					if(!User::checkIfTheOtherExpenseExist()){
 						User::addNewExpenseCategory('Inne');
 					}
 
@@ -132,7 +127,7 @@ class Profile extends Authenticated
 				case 'deleteIncome':
 					$idIncome = $_REQUEST['deleteSubjectID'];
 
-					if(User::checkIfTheOtherIncomeExist()){
+					if(!User::checkIfTheOtherIncomeExist()){
 						User::addNewIncomeCategory('Inne');
 					}
 
@@ -145,14 +140,6 @@ class Profile extends Authenticated
 					$idMethod = $_REQUEST['deleteSubjectID'];
 					User::deleteUserMethodName($idMethod);
 					break;
-
-
 		}
-
-
-
 	}
-
-
-
 }

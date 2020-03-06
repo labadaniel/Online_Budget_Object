@@ -53,22 +53,38 @@
 
               var editID = $(this).attr("name");
               var subjectToChange = $(this).attr("id");
+              alert(subjectToChange);
 
+              $('.updateExpense').click(function(){
 
-              $('.update').click(function(){
+                if (subjectToChange == 'editExpense' && $('input[type=checkbox]').prop('checked')){
 
+                    $(this).load('/profile/update', {
 
-                if ($('input[type=checkbox]').prop('checked')){
+                      editSubjectID: editID,
+                      newLimit: $('#newLimit').val(),
+                      subject: subjectToChange
+
+                    });
+                    window.location.href = '/';
+
+                }
+                  alert($('#name').val());
 
                   $(this).load('/profile/update', {
 
                     editSubjectID: editID,
-                    newLimit: $('#newLimit').val(),
+                    newName: $('#nameExpense').val(),
                     subject: subjectToChange
 
                   });
                   window.location.href = '/';
-                }else{
+
+              });
+
+              $('.update').click(function(){
+                  alert($('#name').val());
+
                   $(this).load('/profile/update', {
 
                     editSubjectID: editID,
@@ -77,7 +93,7 @@
 
                   });
                   window.location.href = '/';
-                }
+
               });
             });
 
@@ -87,7 +103,7 @@
 
               var deleteID = $(this).attr("name");
               var subjectToDelete = $(this).attr("id");
-              
+
 
               $('.confirmDelete').click(function(){
 
@@ -121,6 +137,34 @@
 
 {% block body %}
 
+<!-- Modal Header for editing income/method-->
+<div class="modal fade" id="edit">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edycja</h4>
+        <a data-dismiss="modal" class="close">&times;</a>
+      </div>
+      <form class="">
+        <!-- Modal body -->
+        <div class="modal-body">
+
+            Podaj nową nazwę <input id="name" type="text" value="" class="form-control">
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <a href="/"id="submit" class="btn btn-primary success update" data-dismiss="modal" autofocus>Zapisz</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
 <!-- Modal Header for editing expense-->
 <div class="modal fade" id="editExpense">
   <div class="modal-dialog modal-xl">
@@ -129,13 +173,13 @@
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Edycja</h4>
-        <a href="" id="submit" class="close">&times;</a>
+        <a data-dismiss="modal" class="close">&times;</a>
       </div>
       <form class="">
         <!-- Modal body -->
-        <div class="modal-body">
+        <div id="edExp" class="modal-body">
 
-            Podaj nową nazwę <input id="name" type="text" value="" class="form-control "><br/>
+            Podaj nową nazwę <input id="nameExpense" type="text" value="" class="form-control "><br/>
 
 
 
@@ -148,7 +192,7 @@
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <a href="/"id="submit" class="btn btn-primary success update" data-dismiss="modal" autofocus>Zapisz</a>
+          <a href="/"id="submit" class="btn btn-primary success updateExpense" data-dismiss="modal" autofocus>Zapisz</a>
         </div>
       </form>
 
@@ -156,33 +200,7 @@
   </div>
 </div>
 
-<!-- Modal Header for editing income-->
-<div class="modal fade" id="editIncome">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Edycja</h4>
-        <a href="" id="submit" class="close">&times;</a>
-      </div>
-      <form class="">
-        <!-- Modal body -->
-        <div class="modal-body">
-
-            Podaj nową nazwę <input id="name" type="text" value="" class="form-control ">
-
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <a href="/"id="submit" class="btn btn-primary success update" data-dismiss="modal" autofocus>Zapisz</a>
-        </div>
-      </form>
-
-    </div>
-  </div>
-</div>
 
 <!-- Modal Header for deleting-->
 <div class="modal fade" id="delete">
@@ -192,7 +210,7 @@
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Edycja</h4>
-        <a href="" id="submit" class="close">&times;</a>
+        <a data-dismiss="modal" class="close">&times;</a>
       </div>
 
         <!-- Modal body -->
@@ -222,7 +240,7 @@
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Edycja</h4>
-        <a href="" id="submit" class="close">&times;</a>
+        <a data-dismiss="modal" class="close">&times;</a>
       </div>
 
         <!-- Modal body -->
@@ -306,7 +324,7 @@
                 <div class="card tlo4" id="income{{ income.id }}">
                   <div class="card-body float-right">
                     {{ income.name }}
-                    <a data-toggle="modal" data-target="#editIncome" class="edit float-right pl-1 " id="editIncome" name="{{ income.id }}"><i class="demo-icon icon-params"></i></a>
+                    <a data-toggle="modal" data-target="#edit" class="edit float-right pl-1 " id="editIncome" name="{{ income.id }}"><i class="demo-icon icon-params"></i></a>
                     <a data-toggle="modal" data-target="#delete" class="float-right delete" id="deleteIncome" name="{{ income.id }}"><i class="demo-icon icon-trash-empty"></i></a>
               		</div>
               </div>
@@ -367,8 +385,11 @@
                   <div class="card tlo4">
                     <div class="card-body float-right">
                       {{ method.name }}
+
                       <a data-toggle="modal" data-target="#edit" class="edit float-right pl-1 " id="editMethod" name="{{ method.id }}"><i class="demo-icon icon-params"></i></a>
+
                 			<a data-toggle="modal" data-target="#delete" class="float-right delete" id="deleteMethod" name="{{ method.id }}"><i class="demo-icon icon-trash-empty"></i></a>
+
                 		</div>
                   </div>
                 {% endfor %}

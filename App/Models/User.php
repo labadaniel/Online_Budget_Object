@@ -894,7 +894,8 @@ class User extends \Core\Model
     $stmt->bindValue(':user_id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':name', 'Inne', PDO::PARAM_STR);
 
-    return $stmt->execute();
+    $stmt->execute();
+    return $stmt->fetch();
   }
 
   public static function checkIfTheOtherIncomeExist(){
@@ -913,7 +914,8 @@ class User extends \Core\Model
     $stmt->bindValue(':user_id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':name', 'Inne', PDO::PARAM_STR);
 
-    return $stmt->execute();
+    $stmt->execute();
+    return $stmt->fetch();
   }
 
 
