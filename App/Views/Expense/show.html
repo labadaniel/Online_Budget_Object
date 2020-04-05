@@ -7,19 +7,24 @@
     $(document).ready(function(){
 
         $('input[name="amount"]').keyup(function(){
+          //getCategory();
           showFutureBalance();
         });
         $("div.expenses").click(function(){
           showFutureBalance();
         });
 
+
+
         function showFutureBalance(){
           $('.userLimit').empty();
 
-          var category = $('div.expenses').attr('name');
-          var limit = $('div.expenses').attr('value');
+          //var category = $('div.expenses').attr('name');
+          var category = $('div.expenses input[type="radio"]:checked').val();
+          var limit = $('.'+category+'limit').attr('value');
+          //var limit = $('div.expenses').attr('value');
           limit = parseInt(limit);
-
+        
           var currentBalance = $('#'+category).attr('value');
           if(isNaN(currentBalance)){
             currentBalance = 0;
@@ -133,7 +138,7 @@
 
                       <input type="radio" name="category" value="{{expense.name}}" class="form-check-input" required> {{ expense.name}}
                       {% if expense.expenses_limit==true %}
-                      <span class="text-info" value="{{expense.expenses_limit}}">  (Limit: {{ expense.expenses_limit }})<span>
+                      <span class="text-info {{expense.name}}limit" value="{{expense.expenses_limit}}">  (Limit: {{ expense.expenses_limit }})<span></input>
 
 
                         {% for currentB in currentBalance %}
@@ -165,7 +170,7 @@
                     <div class="expenses" value="{{ expense.expenses_limit }}" name="{{ expense.name}}">
                       <input type="radio" name="category" value="{{expense.name}}" class="form-check-input" required> {{ expense.name}}
                       {% if expense.expenses_limit==true %}
-                      <span class="text-info limit"> (Limit: {{ expense.expenses_limit }})<span>
+                      <span class="text-info {{expense.name}}limit"> (Limit: {{ expense.expenses_limit }})<span>
                       {% endif %}
                     </div>
 
